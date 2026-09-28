@@ -1,0 +1,88 @@
+.region-carrusel {
+
+    #block-barber-views-block-carrusel-block-1 {
+        .view-content {
+            .slider {
+                .slide {
+                    .carousel-inner {
+                        .carousel-item {
+                            .imagen {
+                                position: relative;
+
+                                .views-field-field-imagen {
+                                    &::before {
+                                        content: "";
+                                        position: absolute;
+                                        top: 0;
+                                        left: 0;
+                                        width: 100%;
+                                        height: 100%;
+                                        background-color: rgba(0, 0, 0, 0.5);
+
+
+                                    }
+
+                                    img {
+                                        width:100%;
+                                        height: 700px;
+                                        object-fit: cover;
+                                    }
+                                }
+
+                                .titulo-descripcion {
+                                    position: absolute;
+                                    top: 50%;
+                                    left: 50%;
+                                    transform: translate(-50%, -50%);
+                                    text-align: center;
+                                    color: $color_blanco;
+
+                                    .titulo {
+                                        .views-field-title {
+                                            @include header-vistas($color_blanco);
+                                            padding-bottom: 0;
+                                        }
+                                    }
+
+                                    .descripcion {
+                                        .views-field-field-descripcion {
+                                            @include estilo-textos($color_blanco, 20px);
+
+                                        }
+                                    }
+
+                                    .enlace {
+                                     
+
+                                        .views-field-field-enlace{
+                                            display: inline-flex;
+                                               margin-top: 30px;
+                                               a {
+
+                                            @include boton($color_subtitulo, $color_blanco, 17px);
+                                            font-weight: 600;
+                                            transition: all .5s ease;
+
+                                          
+
+                                        } 
+                                          &:hover {
+                                            a {  background: $color_azul;
+                                            color: $color_blanco;}
+                                              
+
+                                                
+                                                
+                                            }
+                                           
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

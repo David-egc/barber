@@ -1,0 +1,12 @@
+name: 'Contrib database driver test with a missing dependency'
+type: module
+description: 'Support database contrib driver testing.'
+package: Testing
+# version: VERSION
+dependencies:
+  - drupal:a_really_missing_module
+
+# Information added by Drupal.org packaging script on 2025-11-12
+version: '10.5.6'
+project: 'drupal'
+datestamp: 1762990926

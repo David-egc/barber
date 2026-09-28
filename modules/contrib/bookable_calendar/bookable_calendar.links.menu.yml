@@ -1,0 +1,82 @@
+entity.bookable_calendar.list:
+  title: 'Bookable Calendar'
+  description: 'Configure all the Bookable Calendar Entities'
+  route_name:  bookable_calendar.list
+  parent: system.admin_structure
+
+entity.bookable_calendar.settings:
+  title: 'Bookable Calendar'
+  description: 'Configure a Bookable Calendar entity type'
+  route_name:  entity.bookable_calendar.settings
+  parent: entity.bookable_calendar.list
+  weight: 0
+entity.bookable_calendar.collection:
+  title: 'Bookable Calendar'
+  description: 'List of bookable calendars'
+  route_name: entity.bookable_calendar.collection
+  parent: system.admin_content
+entity.bookable_calendar.collection_sub:
+  title: 'Bookable Calendars'
+  description: 'List of bookable calendars'
+  route_name: entity.bookable_calendar.collection
+  parent: entity.bookable_calendar.collection
+  weight: 0
+
+entity.bookable_calendar_opening.settings:
+  title: 'Bookable Calendar Opening'
+  description: 'Configure a Bookable Calendar Opening entity type'
+  route_name:  entity.bookable_calendar_opening.settings
+  parent: entity.bookable_calendar.list
+  weight: 1
+entity.bookable_calendar_opening.collection:
+  title: 'Bookable Calendar Openings'
+  description: 'List of bookable calendar openings'
+  route_name: entity.bookable_calendar_opening.collection
+  parent: entity.bookable_calendar.collection
+  weight: 1
+
+entity.booking_contact.settings:
+  title: 'Booking Contact'
+  description: 'Configure a Booking Contact entity type'
+  route_name:  entity.booking_contact.settings
+  parent: entity.bookable_calendar.list
+  weight: 2
+entity.booking_contact.collection:
+  title: 'Booking Contacts'
+  description: 'List of booking contacts'
+  route_name: entity.booking_contact.collection
+  parent: entity.bookable_calendar.collection
+  weight: 2
+
+entity.booking.settings:
+  title: 'Booking'
+  description: 'Configure a Booking entity type.'
+  route_name:  entity.booking.settings
+  parent: entity.bookable_calendar.list
+  weight: 4
+entity.booking.collection:
+  title: 'Bookings'
+  description: 'List of bookings.'
+  route_name: entity.booking.collection
+  parent: entity.bookable_calendar.collection
+  weight: 4
+
+entity.bookable_calendar_opening_inst.settings:
+  title: 'Bookable Calendar Opening Instance'
+  description: 'Configure a Bookable Calendar Opening Instance entity type.'
+  route_name:  entity.bookable_calendar_opening_inst.settings
+  parent: entity.bookable_calendar.list
+  weight: 3
+entity.bookable_calendar_opening_inst.collection:
+  title: 'Bookable Calendar Opening Instances'
+  description: 'List of bookable calendar opening instances.'
+  route_name: entity.bookable_calendar_opening_inst.collection
+  parent: entity.bookable_calendar.collection
+  weight: 3
+
+bookable_calendar.config:
+  title: 'Bookable Calendar Settings'
+  description: 'Configure system wide settings for Bookable Calendars'
+  route_name: bookable_calendar.settings_form
+  parent: system.admin_config_system
+  weight: 0

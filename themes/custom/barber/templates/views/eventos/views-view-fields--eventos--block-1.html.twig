@@ -1,0 +1,216 @@
+{#
+/**
+ * @file
+ * Theme override to display all the fields in a row.
+ *
+ * Available variables:
+ * - view: The view in use.
+ * - fields: A list of fields, each one contains:
+ *   - content: The output of the field.
+ *   - raw: The raw data for the field, if it exists. This is NOT output safe.
+ *   - class: The safe class ID to use.
+ *   - handler: The Views field handler controlling this field.
+ *   - inline: Whether or not the field should be inline.
+ *   - wrapper_element: An HTML element for a wrapper.
+ *   - wrapper_attributes: List of attributes for wrapper element.
+ *   - separator: An optional separator that may appear before a field.
+ *   - label: The field's label text.
+ *   - label_element: An HTML element for a label wrapper.
+ *   - label_attributes: List of attributes for label wrapper.
+ *   - label_suffix: Colon after the label.
+ *   - element_type: An HTML element for the field content.
+ *   - element_attributes: List of attributes for HTML element for field content.
+ *   - has_label_colon: A boolean indicating whether to display a colon after
+ *     the label.
+ *   - element_type: An HTML element for the field content.
+ *   - element_attributes: List of attributes for HTML element for field content.
+ * - row: The raw result from the query, with all data it fetched.
+ *
+ * @see template_preprocess_views_view_fields()
+ */
+#}
+<div class="item-evento">
+    {#Imagen#}
+    <div class="imagen">
+        {{ fields.field_imagen.separator }}
+        {%- if fields.field_imagen.wrapper_element -%}
+            <{{ fields.field_imagen.wrapper_element }}{{ fields.field_imagen.wrapper_attributes }}>
+        {%- endif %}
+        {%- if fields.field_imagen.label -%}
+        {%- if fields.field_imagen.label_element -%}
+        <{{ fields.field_imagen.label_element }}{{ fields.field_imagen.label_attributes }}
+        >{{ fields.field_imagen.label }}{{ fields.field_imagen.label_suffix }}</{{ fields.field_imagen.label_element }}>
+    {%- else -%}
+        {{ fields.field_imagen.label }}{{ fields.field_imagen.label_suffix }}
+    {%- endif %}
+    {%- endif %}
+    {%- if fields.field_imagen.element_type -%}
+    <{{ fields.field_imagen.element_type }}{{ fields.field_imagen.element_attributes }}
+    >{{ fields.field_imagen.content }}
+</{{ fields.field_imagen.element_type }}>
+{%- else -%}
+    {{ fields.field_imagen.content }}
+        {%- endif %}
+        {%- if fields.field_imagen.wrapper_element -%}
+            </{{ fields.field_imagen.wrapper_element }}>
+        {%- endif %}
+
+
+
+   <div class="fecha">
+        {{ fields.field_fecha.separator }}
+        {%- if fields.field_fecha.wrapper_element -%}
+            <{{ fields.field_fecha.wrapper_element }}{{ fields.field_fecha.wrapper_attributes }}>
+        {%- endif %}
+        {%- if fields.field_fecha.label -%}
+        {%- if fields.field_fecha.label_element -%}
+        <{{ fields.field_fecha.label_element }}{{ fields.field_fecha.label_attributes }}
+        >{{ fields.field_fecha.label }}{{ fields.field_fecha.label_suffix }}</{{ fields.field_fecha.label_element }}>
+    {%- else -%}
+        {{ fields.field_fecha.label }}{{ fields.field_fecha.label_suffix }}
+    {%- endif %}
+    {%- endif %}
+    {%- if fields.field_fecha.element_type -%}
+    <{{ fields.field_fecha.element_type }}{{ fields.field_fecha.element_attributes }}
+    >{{ fields.field_fecha.content }}
+</{{ fields.field_fecha.element_type }}>
+{%- else -%}
+    {{ fields.field_fecha.content }}
+        {%- endif %}
+        {%- if fields.field_fecha.wrapper_element -%}
+            </{{ fields.field_fecha.wrapper_element }}>
+        {%- endif %}
+</div>
+
+
+
+</div>
+ 
+
+
+
+
+
+
+
+
+
+ <div class="titulo">
+      {{ fields.title.separator }}
+      {%- if fields.title.wrapper_element -%}
+        <{{ fields.title.wrapper_element }}{{ fields.title.wrapper_attributes }}>
+      {%- endif %}
+      {%- if fields.title.label -%}
+      {%- if fields.title.label_element -%}
+      <{{ fields.title.label_element }}{{ fields.title.label_attributes }}
+      >{{ fields.title.label }}{{ fields.title.label_suffix }}</{{ fields.title.label_element }}>
+    {%- else -%}
+      {{ fields.title.label }}{{ fields.title.label_suffix }}
+    {%- endif %}
+    {%- endif %}
+    {%- if fields.title.element_type -%}
+    <{{ fields.title.element_type }}{{ fields.title.element_attributes }}
+    >{{ fields.title.content }}
+  </{{ fields.title.element_type }}>
+  {%- else -%}
+    {{ fields.title.content }}
+  {%- endif %}
+  {%- if fields.title.wrapper_element -%}
+</{{ fields.title.wrapper_element }}>
+{%- endif %}
+  </div>
+
+
+
+
+   <div class="lugar">
+        {{ fields.field_lugar.separator }}
+        {%- if fields.field_lugar.wrapper_element -%}
+            <{{ fields.field_lugar.wrapper_element }}{{ fields.field_lugar.wrapper_attributes }}>
+        {%- endif %}
+        {%- if fields.field_lugar.label -%}
+        {%- if fields.field_lugar.label_element -%}
+        <{{ fields.field_lugar.label_element }}{{ fields.field_lugar.label_attributes }}
+        >{{ fields.field_lugar.label }}{{ fields.field_lugar.label_suffix }}</{{ fields.field_lugar.label_element }}>
+    {%- else -%}
+        {{ fields.field_lugar.label }}{{ fields.field_lugar.label_suffix }}
+    {%- endif %}
+    {%- endif %}
+    {%- if fields.field_lugar.element_type -%}
+    <{{ fields.field_lugar.element_type }}{{ fields.field_lugar.element_attributes }}
+    >{{ fields.field_lugar.content }}
+</{{ fields.field_lugar.element_type }}>
+{%- else -%}
+    {{ fields.field_lugar.content }}
+        {%- endif %}
+        {%- if fields.field_lugar.wrapper_element -%}
+            </{{ fields.field_lugar.wrapper_element }}>
+        {%- endif %}
+</div>
+ 
+
+
+   <div class="descripcion">
+        {{ fields.field_descripcion.separator }}
+        {%- if fields.field_descripcion.wrapper_element -%}
+            <{{ fields.field_descripcion.wrapper_element }}{{ fields.field_descripcion.wrapper_attributes }}>
+        {%- endif %}
+        {%- if fields.field_descripcion.label -%}
+        {%- if fields.field_descripcion.label_element -%}
+        <{{ fields.field_descripcion.label_element }}{{ fields.field_descripcion.label_attributes }}
+        >{{ fields.field_descripcion.label }}{{ fields.field_descripcion.label_suffix }}</{{ fields.field_descripcion.label_element }}>
+    {%- else -%}
+        {{ fields.field_descripcion.label }}{{ fields.field_descripcion.label_suffix }}
+    {%- endif %}
+    {%- endif %}
+    {%- if fields.field_descripcion.element_type -%}
+    <{{ fields.field_descripcion.element_type }}{{ fields.field_descripcion.element_attributes }}
+    >{{ fields.field_descripcion.content }}
+</{{ fields.field_descripcion.element_type }}>
+{%- else -%}
+    {{ fields.field_descripcion.content }}
+        {%- endif %}
+        {%- if fields.field_descripcion.wrapper_element -%}
+            </{{ fields.field_descripcion.wrapper_element }}>
+        {%- endif %}
+</div>
+
+
+
+ <div class="enlace-contenido">
+    {{ fields.view_node.separator }}
+    {%- if fields.view_node.wrapper_element -%}
+      <{{ fields.view_node.wrapper_element }}{{ fields.view_node.wrapper_attributes }}>
+    {%- endif %}
+    {%- if fields.view_node.label -%}
+    {%- if fields.view_node.label_element -%}
+    <{{ fields.view_node.label_element }}{{ fields.view_node.label_attributes }}
+    >{{ fields.view_node.label }}{{ fields.view_node.label_suffix }}</{{ fields.view_node.label_element }}>
+  {%- else -%}
+    {{ fields.view_node.label }}{{ fields.view_node.label_suffix }}
+    {%- endif %}
+    {%- endif %}
+    {%- if fields.view_node.element_type -%}
+      <{{ fields.view_node.element_type }}{{ fields.view_node.element_attributes }}
+      >{{ fields.view_node.content }}
+      </{{ fields.view_node.element_type }}>
+    {%- else -%}
+      {{ fields.view_node.content }}
+    {%- endif %}
+  {%- if fields.view_node.wrapper_element -%}
+    </{{ fields.view_node.wrapper_element }}>
+  {%- endif %}
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+

@@ -1,0 +1,176 @@
+bookable_calendar.settings_form:
+  path: '/admin/config/system/bookable-calendar'
+  defaults:
+    _title: 'Bookable Calendar Settings'
+    _form: 'Drupal\bookable_calendar\Form\SettingsForm'
+  requirements:
+    _permission: 'administer bookable_calendar configuration'
+  options:
+    _admin_route: TRUE
+
+
+bookable_calendar.list:
+  path: 'admin/structure/bookable-calendar'
+  defaults:
+    _controller: 'Drupal\bookable_calendar\Controller\BookableCalendarListController::build'
+    _title: 'Bookable Calendar'
+  requirements:
+    _permission: 'administer bookable calendar'
+
+
+entity.bookable_calendar.settings:
+  path: 'admin/structure/bookable-calendar/bookable-calendar'
+  defaults:
+    _form: '\Drupal\bookable_calendar\Form\BookableCalendarSettingsForm'
+    _title: 'Bookable Calendar'
+  requirements:
+    _permission: 'administer bookable calendar'
+
+
+entity.bookable_calendar_opening.settings:
+  path: 'admin/structure/bookable-calendar/bookable-calendar-opening'
+  defaults:
+    _form: '\Drupal\bookable_calendar\Form\BookableCalendarOpeningSettingsForm'
+    _title: 'Bookable Calendar Opening'
+  requirements:
+    _permission: 'administer bookable calendar opening'
+
+
+entity.booking_contact.settings:
+  path: 'admin/structure/bookable-calendar/booking-contact'
+  defaults:
+    _form: '\Drupal\bookable_calendar\Form\BookingContactSettingsForm'
+    _title: 'Booking Contact'
+  requirements:
+    _permission: 'administer booking contact'
+
+entity.booking.settings:
+  path: 'admin/structure/bookable-calendar/booking'
+  defaults:
+    _form: '\Drupal\bookable_calendar\Form\BookingSettingsForm'
+    _title: 'Booking'
+  requirements:
+    _permission: 'administer booking'
+
+entity.bookable_calendar_opening_inst.settings:
+  path: 'admin/structure/bookable-calendar/bookable-calendar-opening-instance'
+  defaults:
+    _form: '\Drupal\bookable_calendar\Form\BookableCalendarOpeningInstanceSettingsForm'
+    _title: 'Bookable Calendar Opening Instance'
+  requirements:
+    _permission: 'administer bookable calendar opening instance'
+
+bookable_calendar.api.booking_contact.create:
+  path: '/bookable-calendar/{opening_instance}/book'
+  defaults:
+    _title: 'Book'
+    _controller: '\Drupal\bookable_calendar\Controller\BookableCalendarApiController::book'
+  methods: [POST]
+  requirements:
+    _permission: 'create booking contact'
+  options:
+    parameters:
+      opening_instance:
+        type: entity:bookable_calendar_opening_inst
+bookable_calendar.api.booking_contact.multiple.create:
+  path: '/bookable-calendar/api/book'
+  defaults:
+    _title: 'Book'
+    _controller: '\Drupal\bookable_calendar\Controller\BookableCalendarApiController::bookMultiple'
+  methods: [POST]
+  requirements:
+    _permission: 'create booking contact'
+bookable_calendar.booking_contact.create:
+  path: '/bookable-calendar/booking-calendar-opening-instance/{opening_instance}/book'
+  defaults:
+    _title: 'Book'
+    _entity_form: booking_contact.add
+  requirements:
+    _permission: 'create booking contact'
+  options:
+    parameters:
+      opening_instance:
+        type: entity:bookable_calendar_opening_inst
+bookable_calendar.api.booking_contact.check_in:
+  path: '/bookable-calendar/api/{booking_contact}/check-in'
+  defaults:
+    _title: 'Book'
+    _controller: '\Drupal\bookable_calendar\Controller\BookableCalendarApiController::checkIn'
+  methods: [POST]
+  requirements:
+    _permission: 'administer booking contact'
+  options:
+    parameters:
+      booking_contact:
+        type: entity:booking_contact
+bookable_calendar.api.booking_contact.check_out:
+  path: '/bookable-calendar/api/{booking_contact}/check-out'
+  defaults:
+    _title: 'Book'
+    _controller: '\Drupal\bookable_calendar\Controller\BookableCalendarApiController::checkOut'
+  methods: [POST]
+  requirements:
+    _permission: 'administer booking contact'
+  options:
+    parameters:
+      booking_contact:
+        type: entity:booking_contact
+bookable_calendar.api.booking.get:
+  path: '/bookable-calendar/api/{bookable_calendar}/bookings'
+  defaults:
+    _controller: 'Drupal\bookable_calendar\Controller\BookableCalendarApiController::getBookings'
+    _title: 'Get Bookings for Given Calendar'
+  methods: [GET]
+  requirements:
+    _permission: 'administer booking contact'
+  options:
+    parameters:
+      bookable_calendar:
+        type: entity:bookable_calendar
+bookable_calendar.booking.check_in:
+  path: '/admin/bookable-calendar/{bookable_calendar}/check-in'
+  defaults:
+    _controller: 'Drupal\bookable_calendar\Controller\BookableCalendarCheckInController::build'
+    _title: 'Bookable Calendar Check In'
+  requirements:
+    _permission: 'edit booking contact'
+  options:
+    parameters:
+      bookable_calendar:
+        type: entity:bookable_calendar
+bookable_calendar.openings:
+  path: 'bookable-calendar/api/{bookable_calendar}/openings'
+  defaults:
+    _controller: 'Drupal\bookable_calendar\Controller\BookableCalendarApiController::getOpenings'
+    _title: 'Bookable Calendar Openings'
+  requirements:
+    _permission: 'view bookable calendar'
+  options:
+    parameters:
+      bookable_calendar:
+        type: entity:bookable_calendar
+
+bookable_calendar.ajax.booking_contact.create:
+  path: '/ajax/bookable-calendar/{opening_instance}/book'
+  defaults:
+    _title: 'Book'
+    _controller: '\Drupal\bookable_calendar\Controller\BookableCalendarApiController::bookAjax'
+  methods: [POST]
+  requirements:
+    _permission: 'create booking contact'
+  options:
+    parameters:
+      opening_instance:
+        type: entity:bookable_calendar_opening_inst
+bookable_calendar.ajax.booking_contact.delete:
+  path: '/ajax/bookable-calendar/{opening_instance}/cancel'
+  defaults:
+    _title: 'Cancel'
+    _controller: '\Drupal\bookable_calendar\Controller\BookableCalendarApiController::cancelAjax'
+  methods: [POST]
+  requirements:
+    _permission: 'create booking contact'
+  options:
+    parameters:
+      opening_instance:
+        type: entity:bookable_calendar_opening_inst

@@ -1,0 +1,9 @@
+name: 'Generic Module1 test'
+type: module
+description: 'A another testing module with no special functionality. It just exists. Can we say anymore about ourselves? 🤯'
+package: Testing
+
+# Information added by Drupal.org packaging script on 2025-11-12
+version: '10.5.6'
+project: 'drupal'
+datestamp: 1762990926

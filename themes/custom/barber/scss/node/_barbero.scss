@@ -1,0 +1,33 @@
+.page-node-type-barbero{
+    
+
+ 
+
+    #block-barber-page-title{
+             display:none;    
+    }
+  .region-content{
+  .contenido-nodo{
+.imagen-nodo{
+    border-radius: 3px;
+    overflow: hidden;
+    img{
+        width: 100%;
+    }
+}
+.titulo-nodo{
+    h2{
+        @include titulo-nodo($color_subtitulo,25px);
+    }
+}
+.texto-nodo{
+   .field--name-field-descripcion{
+    p{
+        @include estilo-textos($color_parrafo,15px);
+    }
+   } 
+}
+  }
+  }  
+
+}

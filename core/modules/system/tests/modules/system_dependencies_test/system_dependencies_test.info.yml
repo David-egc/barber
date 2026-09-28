@@ -1,0 +1,12 @@
+name: 'System dependency test'
+type: module
+description: 'Support module for testing system dependencies.'
+package: Testing
+# version: VERSION
+dependencies:
+  - drupal:_missing_dependency
+
+# Information added by Drupal.org packaging script on 2025-11-12
+version: '10.5.6'
+project: 'drupal'
+datestamp: 1762990926

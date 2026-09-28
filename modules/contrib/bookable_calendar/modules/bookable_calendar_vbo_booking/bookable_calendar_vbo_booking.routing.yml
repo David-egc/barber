@@ -1,0 +1,7 @@
+bookable_calendar_vbo_booking.booking_form:
+  path: '/admin/content/bookable-calendar/booking-contact-multiple/add'
+  defaults:
+    _form: '\Drupal\bookable_calendar_vbo_booking\Form\BookingContactMultipleManualForm'
+    _title: 'Book Multiple Openings'
+  requirements:
+    _permission: 'use views bulk booking'

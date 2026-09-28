@@ -1,0 +1,801 @@
+<?php
+
+/**
+ * @file
+ * Provides a bookable calendar.
+ */
+
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Render\BubbleableMetadata;
+use Drupal\Core\Render\Markup;
+use Drupal\bookable_calendar\DateFormatter;
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\user\Entity\User;
+use Drupal\views\ViewExecutable;
+use Drupal\views\Plugin\views\query\QueryPluginBase;
+
+/**
+ * Implements hook_help().
+ */
+function bookable_calendar_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the bookable_calendar module.
+    case 'help.page.bookable_calendar':
+      $text = file_get_contents(__DIR__ . '/README.md');
+      if (!\Drupal::moduleHandler()->moduleExists('markdown')) {
+        return '<pre>' . Html::escape($text) . '</pre>';
+      }
+      else {
+        // Use the Markdown filter to render the README.
+        $filter_manager = \Drupal::service('plugin.manager.filter');
+        $settings = \Drupal::configFactory()->get('markdown.settings')->getRawData();
+        $config = ['settings' => $settings];
+        $filter = $filter_manager->createInstance('markdown', $config);
+        return $filter->process($text, 'en');
+      }
+    default:
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function bookable_calendar_theme() {
+  return [
+    'bookable_calendar' => [
+      'render element' => 'content',
+    ],
+    'bookable_calendar_opening' => [
+      'render element' => 'content',
+    ],
+    'booking_contact' => [
+      'render element' => 'content',
+    ],
+    'booking' => [
+      'render element' => 'content',
+    ],
+    'bookable_calendar_opening_inst' => [
+      'render element' => 'content',
+    ],
+    'admin_booking_list' => [
+      'render element' => 'children',
+      'template' => 'admin-booking-list',
+      'variables' => [
+        'rows' => [],
+      ],
+    ],
+  ];
+}
+
+/**
+ * Implements hook_entity_extra_field_info().
+ */
+function bookable_calendar_entity_extra_field_info() {
+  $extra['bookable_calendar']['bookable_calendar']['display']['instances'] = [
+    'label' => t('Instances'),
+    'description' => t('A list of bookable instances for this calendar.'),
+    'weight' => 0,
+    'visible' => TRUE,
+  ];
+
+  $extra['bookable_calendar_opening_inst']['bookable_calendar_opening_inst']['display']['availability'] = [
+    'label' => t('Availability'),
+    'description' => t('A widget showing available and max. available slots.'),
+    'weight' => 0,
+    'visible' => TRUE,
+  ];
+  $extra['bookable_calendar_opening_inst']['bookable_calendar_opening_inst']['display']['book_link'] = [
+    'label' => t('Book link'),
+    'description' => t('A link for booking an instance.'),
+    'weight' => 0,
+    'visible' => TRUE,
+  ];
+
+  return $extra;
+}
+
+/**
+ * Implements hook_views_data_alter().
+ */
+function bookable_calendar_views_data_alter(array &$data) {
+  if (isset($data['bookable_calendar_opening_inst'])) {
+    // Add the current company computed field to Views.
+    $data['bookable_calendar_opening_inst']['max_slots'] = [
+      'title' => t('Maximum slots'),
+      'help' => t('The maximum slots for this instance.'),
+      'field' => [
+        'id' => 'bookable_calendar_max_slots',
+      ],
+    ];
+
+    $data['bookable_calendar_opening_inst']['available_slots'] = [
+      'title' => t('Available slots'),
+      'help' => t('The available slots for this instance.'),
+      'field' => [
+        'id' => 'bookable_calendar_available_slots',
+      ],
+      'filter' => [
+        'title' => t('Available slots'),
+        'help' => t('The available slots for this instance.'),
+        'field' => 'available_slots',
+        'id' => 'bookable_calendar_available_slots_filter',
+      ],
+      'argument' => [
+        'title' => t('Available slots'),
+        'help' => t('The available slots for this instance.'),
+        'field' => 'available_slots',
+        'filter' => 'intval',
+        'id' => 'bookable_calendar_available_slots_argument',
+      ],
+    ];
+    $data['bookable_calendar_opening_inst']['minimum_available_slots'] = [
+      'title' => t('Minimum available slots'),
+      'help' => t('The available slots for this instance is greater than or equal to a minimum.'),
+      'argument' => [
+        'title' => t('Minimum available slots'),
+        'help' => t('The available slots for this instance is greater than or equal to a minimum.'),
+        'field' => 'available_slots',
+        'filter' => 'intval',
+        'id' => 'bookable_calendar_minimum_available_slots_argument',
+      ],
+    ];
+
+    $data['bookable_calendar_opening_inst']['book_link'] = [
+      'title' => t('Book link'),
+      'help' => t('A link for booking an instance.'),
+      'field' => [
+        'id' => 'bookable_calendar_book_link',
+      ],
+    ];
+  }
+}
+
+/**
+ * Replace all titles on pages to make them easier to understand.
+ *
+ * @param array $variables
+ *   Variables associated with hook_page_title.
+ */
+function bookable_calendar_preprocess_page_title(array &$variables) {
+  $route_name = \Drupal::routeMatch()->getRouteName();
+  if ($route_name === 'bookable_calendar.booking_contact.create') {
+    $date = \Drupal::routeMatch()->getParameter('opening_instance')->date;
+    $formatted_date = DateFormatter::formatDateToBooking($date->value, $date->end_value);
+
+    $variables['title'] = t('Book: @date', ['@date' => $formatted_date]);
+  }
+  elseif (
+    $route_name === 'entity.bookable_calendar_opening_inst.canonical' ||
+    $route_name === 'entity.bookable_calendar_opening_inst.edit_form' ||
+    $route_name === 'entity.bookable_calendar_opening_inst.delete_form'
+    ) {
+    $date = \Drupal::routeMatch()->getParameter('bookable_calendar_opening_inst')->date;
+    $formatted_date = DateFormatter::formatDateToBooking($date->value, $date->end_value);
+    $variables['title'] = t('@date', ['@date' => $formatted_date]);
+
+    if ($route_name === 'entity.bookable_calendar_opening_inst.edit_form') {
+      $variables['title'] = t('Edit Opening Instance @date', ['@date' => $formatted_date]);
+    }
+    elseif ($route_name === 'entity.bookable_calendar_opening_inst.delete_form') {
+      $variables['title'] = t('Delete Opening Instance @date', ['@date' => $formatted_date]);
+    }
+  }
+  elseif (
+    $route_name === 'entity.booking.canonical' ||
+    $route_name === 'entity.booking.edit_form' ||
+    $route_name === 'entity.booking.delete_form'
+    ) {
+    $opening_instance = \Drupal::routeMatch()->getParameter('booking')->booking_instance->entity;
+    if (!is_null($opening_instance)) {
+      $date = \Drupal::routeMatch()->getParameter('booking')->booking_instance->entity->date;
+      $formatted_date = DateFormatter::formatDateToBooking($date->value, $date->end_value);
+    }
+    $variables['title'] = $formatted_date ?? '';
+    if ($route_name === 'entity.booking.edit_form') {
+      $variables['title'] = t('Edit Booking for @date', ['@date' => $formatted_date]);
+    }
+    elseif ($route_name === 'entity.booking.delete_form') {
+      $variables['title'] = t('Delete Booking for @date', ['@date' => $formatted_date]);
+    }
+  }
+  elseif (
+    $route_name === 'entity.booking_contact.canonical' ||
+    $route_name === 'entity.booking_contact.edit_form' ||
+    $route_name === 'entity.booking_contact.delete_form'
+    ) {
+    $opening_instance = \Drupal::routeMatch()->getParameter('booking_contact')->booking_instance->entity;
+    if (!is_null($opening_instance)) {
+      $date = \Drupal::routeMatch()->getParameter('booking_contact')->booking_instance->entity->date;
+      $formatted_date = DateFormatter::formatDateToBooking($date->value, $date->end_value);
+    }
+    $variables['title'] = $formatted_date ?? '';
+    if ($route_name === 'entity.booking_contact.edit_form') {
+      $variables['title'] = t('Edit booking for @date', ['@date' => $formatted_date]);
+    }
+    elseif ($route_name === 'entity.booking_contact.delete_form') {
+      $variables['title'] = t('Delete booking for @date', ['@date' => $formatted_date]);
+    }
+  }
+}
+
+/**
+ * Prepares variables for bookable calendar templates.
+ *
+ * Default template: bookable-calendar.html.twig.
+ *
+ * @param array $variables
+ *   An associative array containing:
+ *   - elements: An associative array containing the bookable calendar
+ *     information and any fields attached to the entity.
+ *   - attributes: HTML attributes for the containing element.
+ */
+function template_preprocess_bookable_calendar(array &$variables) {
+  \Drupal::service('bookable_calendar.renderer')->addOneClickBooking($variables, $variables['content']['#bookable_calendar']);
+}
+
+/**
+ * Prepares variables for booking calendar opening templates.
+ *
+ * Default template: bookable-calendar-opening.html.twig.
+ *
+ * @param array $variables
+ *   An associative array containing:
+ *   - elements: An associative array containing the booking calendar opening
+ *     information and any fields attached to the entity.
+ *   - attributes: HTML attributes for the containing element.
+ */
+function template_preprocess_bookable_calendar_opening(array &$variables) {
+  // Perprocess code would go here.
+}
+
+/**
+ * Prepares variables for booking contact templates.
+ *
+ * Default template: booking-contact.html.twig.
+ *
+ * @param array $variables
+ *   An associative array containing:
+ *   - elements: An associative array containing the booking contact
+ *     information and any fields attached to the entity.
+ *   - attributes: HTML attributes for the containing element.
+ */
+function template_preprocess_booking_contact(array &$variables) {
+  // Preprocess code would go here.
+}
+
+/**
+ * Prepares variables for booking templates.
+ *
+ * Default template: booking.html.twig.
+ *
+ * @param array $variables
+ *   An associative array containing:
+ *   - elements: An associative array containing the booking information
+ *     and any fields attached to the entity.
+ *   - attributes: HTML attributes for the containing element.
+ */
+function template_preprocess_booking(array &$variables) {
+  // Preprocess code would go here.
+}
+
+/**
+ * Prepares variables for bookable calendar opening instance templates.
+ *
+ * Default template: bookable-calendar-opening-inst.html.twig.
+ *
+ * @param array $variables
+ *   An associative array containing:
+ *   - elements: An associative array containing the bookable calendar
+ *     opening instance information and any fields attached to the entity.
+ *   - attributes: HTML attributes for the containing element.
+ */
+function template_preprocess_bookable_calendar_opening_inst(array &$variables) {
+  $variables['content']['date']['#attributes']['class'] = [
+    'opening-time',
+  ];
+}
+
+/**
+ * Implements hook_mail().
+ */
+function bookable_calendar_mail($key, &$message, $params) {
+  switch ($key) {
+    case 'bookable_calendar_notification':
+      $options = [
+        'langcode' => $message['langcode'],
+      ];
+      $message['from'] = \Drupal::config('system.site')->get('mail');
+      $message['subject'] = $params['subject'];
+      $message['body'][] = Markup::create($params['message']);
+      break;
+  }
+}
+
+/**
+ * Implements hook_token_info().
+ */
+function bookable_calendar_token_info() {
+  $info = [];
+  $info['types']['bookable_calendar'] = [
+    'name' => t('Bookable Calendar'),
+    'description' => t('Tokens associated with Bookable Calendars'),
+  ];
+  $info['tokens']['bookable_calendar']['title'] = [
+    'name' => t('The title of the Calendar'),
+    'description' => t('The title of the Calendar'),
+  ];
+
+  $info['types']['booking_contact'] = [
+    'name' => t('Booking Contact'),
+    'description' => t('Tokens associated with Booking Contact'),
+  ];
+  $info['tokens']['booking_contact']['url'] = [
+    'name' => t('The URL for the Booking Contact'),
+    'description' => t('The URL for the Booking Contact'),
+  ];
+  $info['tokens']['booking_contact']['email'] = [
+    'name' => t('The Email for the Booking Contact'),
+    'description' => t('The Email for the Booking Contact'),
+  ];
+  $info['tokens']['booking_contact']['party_size'] = [
+    'name' => t('The Party Size for the Booking Contact'),
+    'description' => t('The Party Size for the Booking Contact'),
+  ];
+  $info['tokens']['booking_contact']['values'] = [
+    'name' => t('The RAW Booking Contact Entity'),
+    'description' => t('The RAW Booking Contact Entity'),
+  ];
+  $info['tokens']['booking_contact']['hashed_login_url'] = [
+    'name' => t('A public login path to let the user edit their booking without being a Drupal user'),
+    'description' => t('A public login path to let the user edit their booking without being a Drupal user'),
+  ];
+  $info['tokens']['booking_contact']['calendar_title'] = [
+    'name' => t('The Calendar Title for this contact'),
+    'description' => t('The Calendar Title for this contact'),
+  ];
+  $info['tokens']['booking_contact']['instance_id'] = [
+    'name' => t('ID of the created reservation'),
+    'description' => t('ID of the created reservation'),
+  ];
+  $info['tokens']['booking_contact']['instance_title'] = [
+    'name' => t('The title of the instance the reservation belongs to'),
+    'description' => t('The title of the instance the reservation belongs to'),
+  ];
+  $info['tokens']['booking_contact']['date'] = [
+    'name' => t('Date of booking'),
+    'description' => t('Date of booking'),
+  ];
+  $info['tokens']['booking_contact']['created'] = [
+    'name' => t('Date of filing the application'),
+    'description' => t('Date of filing the application'),
+  ];
+
+  $info['types']['booking'] = [
+    'name' => t('Booking'),
+    'description' => t('Tokens associated with Bookings'),
+  ];
+  $info['tokens']['booking']['date'] = [
+    'name' => t('The date of a Booking'),
+    'description' => t('The date of a Booking'),
+  ];
+  $info['tokens']['booking']['created'] = [
+    'name' => t('The time a Booking was created'),
+    'description' => t('The time a Booking was created'),
+  ];
+  $info['tokens']['booking']['values'] = [
+    'name' => t('The RAW Booking Entity'),
+    'description' => t('The RAW Booking Entity'),
+  ];
+
+  return $info;
+}
+
+function bookable_calendar_load_translated_entity($entity, $data) {
+  if (empty($entity)) {
+    return $entity;
+  }
+  $langcode = $data['langcode'] ?? \Drupal::languageManager()->getCurrentLanguage()->getId();
+  /** @var \Drupal\Core\Entity\EntityInterface $entity **/
+  if (!$entity->language()->getId() !== $langcode && $entity->hasTranslation($langcode)) {
+    return $entity->getTranslation($langcode);
+  }
+  return $entity;
+}
+
+/**
+ * Create tokens.
+ */
+function bookable_calendar_tokens($type, $tokens, array $data, array $options, BubbleableMetadata $bubbleable_metadata) {
+  $replacements = [];
+  if ($type === 'bookable_calendar') {
+    foreach ($tokens as $name => $original) {
+      switch ($name) {
+        case 'title':
+          $calendar = bookable_calendar_load_translated_entity($data['bookable_calendar'], $options);
+          $replacements[$original] = $calendar->getTitle();
+          break;
+
+        case 'description':
+          $calendar = bookable_calendar_load_translated_entity($data['bookable_calendar'], $options);
+          $replacements[$original] = $calendar->getDescription();
+          break;
+      }
+    }
+  }
+  elseif ($type === 'booking_contact') {
+    foreach ($tokens as $name => $original) {
+      switch ($name) {
+        case 'url':
+          $replacements[$original] = $data['booking_contact']->toLink()->toString();
+          break;
+
+        case 'email':
+          $replacements[$original] = $data['booking_contact']->email->value;
+          break;
+
+        case 'part_size':
+          $replacements[$original] = $data['booking_contact']->party_size->value;
+          break;
+
+        case 'values':
+          $replacements[$original] = $data['booking_contact']->getRawValues();
+          break;
+
+        case 'hashed_login_url':
+          $replacements[$original] = $data['booking_contact']->generatePublicLoginLink();
+          break;
+
+        case 'calendar_title':
+          $calendar = bookable_calendar_load_translated_entity($data['booking_contact']->getParentCalendar(), $options);
+          $replacements[$original] = $calendar->getTitle();
+          break;
+
+        case 'instance_id':
+          $replacements[$original] = $data['booking_contact']->id();
+          break;
+
+        case 'instance_title':
+          $replacements[$original] = $data['booking_contact']->getParentOpening()->getTitle();
+          break;
+
+        case 'date':
+          $replacements[$original] = $data['booking_contact']->getReservationDate();
+          break;
+
+        case 'created':
+          $replacements[$original] = $data['booking_contact']->getCreatedDate();
+          break;
+      }
+    }
+  }
+  elseif ($type === 'booking') {
+    foreach ($tokens as $name => $original) {
+      switch ($name) {
+        case 'date':
+          $replacements[$original] = $data['booking']->date->value;
+          break;
+
+        case 'created':
+          $replacements[$original] = $data['booking']->created->value;
+          break;
+
+        case 'values':
+          $replacements[$original] = $data['booking']->getRawValues();
+          break;
+      }
+    }
+  }
+
+  return $replacements;
+}
+
+/**
+ * Form alters.
+ */
+function bookable_calendar_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  if ($form_id === 'booking_contact_add_form') {
+    // On booking contact add form, if on page with Instance ID in the url
+    // set that as the booking_instance reference and hide for element.
+    $route_name = \Drupal::routeMatch()->getRouteName();
+    if ($route_name === 'bookable_calendar.booking_contact.create') {
+      $opening_instance = \Drupal::routeMatch()->getParameter('opening_instance');
+      if ($opening_instance) {
+        $form['booking_instance']['widget'][0]['target_id']['#default_value'] = $opening_instance;
+        $form['booking_instance']['#access'] = FALSE;
+      }
+
+      // Get logged in user and set default email.
+      $current_user = \Drupal::currentUser();
+      $user = \Drupal::entityTypeManager()->getStorage('user')->load($current_user->id()) ?? User::getAnonymousUser();
+      if ($current_user->isAuthenticated()) {
+        $user_email = $current_user->getEmail();
+        $form['email']['widget'][0]['value']['#default_value'] = $user_email;
+        $form['uid']['widget'][0]['target_id']['#default_value'] = \Drupal::entityTypeManager()->getStorage('user')->load($user->id());
+      }
+      // If user isn't admin don't allow to change user entity.
+      if (!$user->hasPermission('administer booking contact')) {
+        $form['uid']['widget'][0]['target_id']['#default_value'] = $user;
+        $form['uid']['#access'] = FALSE;
+      }
+
+      // Override default "save" button text.
+      $form['actions']['submit']['#value'] = t('Book', [], ['context' => 'Claim a slot in this calendar']);
+    }
+  }
+  elseif ($form_id === 'booking_contact_edit_form') {
+    // Not allowing to change where your booking is yet.
+    $form['booking_instance']['#access'] = FALSE;
+    $current_user = \Drupal::currentUser();
+    $user = \Drupal::entityTypeManager()->getStorage('user')->load($current_user->id()) ?? User::getAnonymousUser();
+    // If user isn't admin don't allow to change user entity.
+    if (!$user->hasPermission('administer booking contact')) {
+      $form['uid']['widget'][0]['target_id']['#default_value'] = $user;
+      $form['uid']['#access'] = FALSE;
+    }
+  }
+  elseif ($form_id === 'booking_contact_delete_form') {
+    // Alter submit when non-logged user is deleting their booking.
+    $logged_in = \Drupal::currentUser()->isAuthenticated();
+    if (!$logged_in) {
+      $form['actions']['submit']['#submit'][] = 'bookable_calendar_delete_set_redirect';
+    }
+  }
+  elseif ($form_id === 'bookable_calendar_form' || $form_id === 'bookable_calendar_edit_form') {
+    // Add the "Browse available tokens" link to the e-mail text override.
+    if (\Drupal::service('module_handler')->moduleExists('token')) {
+      $form['notifications']['tokens'] = [
+        '#theme' => 'token_tree_link',
+        '#token_types' => [
+          'booking_contact',
+          'bookable_calendar',
+        ],
+        '#global_types' => TRUE,
+        '#click_insert' => TRUE,
+        '#show_restricted' => FALSE,
+        '#recursion_limit' => 3,
+        '#text' => t('Browse available tokens'),
+        '#weight' => -999,
+      ];
+    }
+
+  }
+}
+
+/**
+ * Redirect to front page when you delete your own booking.
+ */
+function bookable_calendar_delete_set_redirect($form, FormStateInterface $form_state) {
+  $form_state->setRedirect('<front>');
+  \Drupal::messenger()->addStatus(t('Your booking has been deleted.'));
+}
+
+/**
+ * Implements hook_views_post_execute().
+ */
+function bookable_calendar_views_post_execute(ViewExecutable $view) {
+  if ($view->getBaseTables()['bookable_calendar_opening_inst'] ?? NULL) {
+    // Handle available slots filter.
+    if ($slots_filter = $view->storage->get('bookable_calendar_available_slots_filter')) {
+      // Get filter values & operator and apply logic
+      // based on the instance's available slots.
+      $value = $slots_filter['value']['value'] ?? NULL;
+      $min = $slots_filter['value']['min'] ?? NULL;
+      $max = $slots_filter['value']['max'] ?? NULL;
+
+      foreach ($view->result as $delta => $resultRow) {
+        /** @var \Drupal\bookable_calendar\Entity\BookableCalendarOpeningInstance $entity */
+        $entity = $resultRow->_entity;
+        $availability = $entity->slotsAvailable();
+        $filter_result = TRUE;
+
+        switch ($slots_filter['operator']) {
+          case '<':
+            $filter_result = $availability < $value;
+            break;
+
+          case '<=':
+            $filter_result = $availability <= $value;
+            break;
+
+          case '=':
+            $filter_result = $availability == $value;
+            break;
+
+          case '!=':
+            $filter_result = $availability != $value;
+            break;
+
+          case '>=':
+            $filter_result = $availability >= $value;
+            break;
+
+          case '>':
+            $filter_result = $availability > $value;
+            break;
+
+          case 'between':
+            $filter_result = $min <= $availability && $availability <= $max;
+            break;
+
+          case 'not between':
+            $filter_result = !($min <= $availability && $availability <= $max);
+            break;
+
+          case 'regular_expression':
+            $filter_result = preg_match($value, $availability);
+            break;
+
+          case 'empty':
+            $filter_result = !$availability;
+            break;
+
+          case 'not empty':
+            $filter_result = !!$availability;
+            break;
+        }
+
+        if (!$filter_result) {
+          unset($view->result[$delta]);
+        }
+      }
+    }
+
+    // Handle available slots argument.
+    if ($slots_arg = $view->storage->get('bookable_calendar_available_slots_argument')) {
+      foreach ($view->result as $delta => $resultRow) {
+        /** @var \Drupal\bookable_calendar\Entity\BookableCalendarOpeningInstance $entity */
+        $entity = $resultRow->_entity;
+        if ($slots_arg['operator'] === 'and' && count($slots_arg['value']) > 1
+          || !in_array($entity->slotsAvailable(), $slots_arg['value'])
+        ) {
+          unset($view->result[$delta]);
+        }
+      }
+    }
+
+    // Handle minimum available slots argument.
+    if ($min_slots_arg = $view->storage->get('bookable_calendar_minimum_available_slots_argument')) {
+      $min_value = $min_slots_arg['operator'] === 'and'
+        ? max($min_slots_arg['value'])
+        : min($min_slots_arg['value']);
+      foreach ($view->result as $delta => $resultRow) {
+        /** @var \Drupal\bookable_calendar\Entity\BookableCalendarOpeningInstance $entity */
+        $entity = $resultRow->_entity;
+        if ($entity->slotsAvailable() < $min_value) {
+          unset($view->result[$delta]);
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Process Bookable Calendar Opening Instances in a batch process.
+ */
+function bookable_calendar_process_opening_instances($operation_details, &$context) {
+  // Retrieve the next group.
+  $context['results'] = [];
+  $context['results']['created'] = 0;
+  $context['results']['deleted'] = 0;
+  $context['results']['errors'] = [];
+
+  $instanceStorage = \Drupal::entityTypeManager()->getStorage('bookable_calendar_opening_inst');
+  $booking_opening = $operation_details['bookable_cal_opening'];
+  foreach ($operation_details['dates_open'] as $date_instance) {
+    $start_date = $date_instance['value'];
+    $end_date = $date_instance['end_value'];
+    $existing_instance = $instanceStorage->loadByProperties([
+      'date__value' => $start_date,
+      'date__end_value' => $end_date,
+      'booking_opening' => [
+        'target_id' => $booking_opening,
+      ],
+    ]);
+    if (!$existing_instance) {
+      $context['results']['created']++;
+      $new_instance = $instanceStorage->create([
+        'date' => [
+          'value' => $start_date,
+          'end_value' => $end_date,
+        ],
+        'booking_opening' => [
+          'target_id' => $booking_opening,
+        ],
+      ]);
+      $new_instance->save();
+      $operation_details['existing_instances'][] = [
+        'target_id' => $new_instance->id(),
+      ];
+    }
+    else {
+      // This instance is still needed drop it from original_instances.
+      $existing_id = reset($existing_instance)->id();
+      unset($operation_details['original_instances'][$existing_id]);
+    }
+  }
+
+  $openingStorage = \Drupal::entityTypeManager()->getStorage('bookable_calendar_opening');
+  $parent_opening = $openingStorage->load($booking_opening);
+  $parent_opening->set('booking_instance', $operation_details['existing_instances']);
+  $parent_opening->save();
+
+  // If there are original instances still that means we no longer want those.
+  if (count($operation_details['original_instances'])) {
+    foreach ($operation_details['original_instances'] as $instance => $val) {
+      // Load this instance and confirm it has no bookings, then delete it.
+      $existing_instance = $instanceStorage->load($instance);
+      if (!is_null($existing_instance)) {
+        $bookings = $existing_instance->get('booking')->getValue();
+        if (count($bookings)) {
+          // This instance has bookings so ignore it.
+          $context['results']['errors'][] = $instance;
+        }
+        else {
+          $context['results']['deleted']++;
+          $existing_instance->delete();
+        }
+      }
+    }
+  }
+
+  $context['results']['count'] = count($operation_details['dates_open']);
+}
+
+/**
+ * Finished Processing Bookable Calendar Opening Instances in a batch process.
+ */
+function bookable_calendar_process_opening_instances_finished($success, $results, $operations) {
+  $messenger = \Drupal::messenger();
+  if ($success) {
+    if ($results['created']) {
+      $messenger->addMessage(t('@count Bookable Calendar Opening Instances created.', ['@count' => $results['created']]));
+    }
+    if ($results['deleted']) {
+      $messenger->addMessage(t('@count Bookable Calendar Opening Instances deleted.', ['@count' => $results['deleted']]));
+    }
+
+    if (count($results['errors'])) {
+      foreach ($results['errors'] as $error) {
+        $messenger->addMessage(t('Unable to delete Booking Instance <a href="/admin/content/bookable-calendar/booking-calendar-opening-instance/@instance/edit">@instance</a> due to it already having spots claimed.', ['@instance' => $error]));
+      }
+    }
+  }
+  else {
+    // An error occurred.
+    // $operations contains the operations that remained unprocessed.
+    $error_operation = reset($operations);
+    $messenger->addMessage(
+      t('An error occurred while processing @operation with arguments : @args',
+        [
+          '@operation' => $error_operation[0],
+          '@args' => print_r($error_operation[0], TRUE),
+        ]
+      )
+    );
+  }
+}
+
+/**
+ * Implements hook_views_query_alter().
+ */
+function bookable_calendar_views_query_alter(ViewExecutable $view, QueryPluginBase $query) {
+  // On Booking Notifications View take Arguments to filter out contacts.
+  if ($view->id() === 'booking_notifications') {
+    $notification_filter = reset($view->args);
+    foreach ($query->where as &$condition_group) {
+      foreach ($condition_group['conditions'] as &$condition) {
+        if ($condition['field'] === 'booking_contact__notifications.notifications_value') {
+          $condition['value'] = $notification_filter;
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_delete().
+ */
+function bookable_calendar_booking_contact_delete(EntityInterface $entity) {
+  \Drupal::service('bookable_calendar.notification')->sendNotification($entity, TRUE);
+}

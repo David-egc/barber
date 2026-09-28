@@ -1,0 +1,12 @@
+name: 'Billboard.js Charts'
+type: module
+description: 'Charts module integration with Billboard.js Charts.'
+package: Charts
+core_version_requirement: ^10.3 || ^11
+dependencies:
+  - 'charts:charts'
+
+# Information added by Drupal.org packaging script on 2025-12-13
+version: '5.1.10'
+project: 'charts'
+datestamp: 1765584160

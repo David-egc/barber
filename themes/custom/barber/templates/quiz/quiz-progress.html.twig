@@ -1,0 +1,15 @@
+<div class="container">
+  <div id="quiz-progress">
+    <div class="container-progress">
+      {{ 'Página <span id="quiz-question-number">@current</span> de <span
+        id="quiz-num-questions">@total</span>'|t({'@current': current, '@total':
+      total}) }}
+
+    </div>
+    <div class="progress-bar">
+      <div class="progress-fill"></div>
+
+    </div>
+    <h6>Completado</h6>
+  </div>
+</div>

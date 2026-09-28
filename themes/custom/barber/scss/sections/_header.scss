@@ -1,0 +1,65 @@
+.encabezado{
+    .region-header{
+position: absolute;
+  z-index: 2;
+  width: 100%;
+  height: auto;
+  padding: 20px 0;
+
+  #block-barber-site-branding{
+    .site-logo{
+        img{
+ width: 200px;
+        }
+       
+    }
+  }
+  #block-barber-navegacionprincipal{
+text-align:center;
+   @include menu-superfish($color_blanco,14px,$color_crema);
+  }
+  #block-barber-reservar{
+    @include menu-simple;
+    ul:not(.contextual-links){
+      display: inline-flex;
+      margin: 0;
+
+      li a{
+        @include boton($color_blanco,$color_crema,14px);
+      }
+
+    }
+
+  }
+#block-barber-menumovil {
+            text-align: center;
+
+            .field {
+                .pushbar-boton {
+                    .menu-boton {
+                        border: none;
+                        background: $color_morado;
+                        border-radius: 2px;
+                        padding: 0 2px;
+                        transition: all .4s;
+
+                        &:hover {
+                            background: $color_crema;
+                        }
+
+                        &::before {
+                            content: '\f0c9';
+                            font-size: 20px;
+                            font-family: $font-icon-free;
+                            color: $color_blanco;
+                            padding: 0 2px;
+                        }
+
+
+                    }
+          
+}
+    }
+  }
+}
+}

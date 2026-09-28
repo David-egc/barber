@@ -1,0 +1,63 @@
+.region-equipo-trabajo{
+
+    #block-barber-views-block-equipo-block-1{
+        text-align: center;
+        padding: 100px 0 70px;
+        background: $color_secundario;
+        h2{
+   @include titulo-vistas;
+        }
+        .vista-equipo {
+             .view-header{
+@include header-vistas($color_subtitulo);
+        }
+        .view-content {
+                .item-equipo {
+                 
+                    border-radius: 3px;
+                    box-shadow: -1px 3px 20px 0px rgba(82, 90, 101, 0.1);
+                    overflow: hidden;
+
+                    .imagen {
+                        border-radius: 3px ;
+                        overflow: hidden;
+                        img{
+                            min-height: 260px;
+                        }
+                    }
+
+                    .item-contenido {
+                        margin-top: 5px;
+                        padding: 20px 15px;
+                         background: $bg-equipo;
+
+                        .titulo {
+                            .views-field-title {
+                                span a {
+                                    @include estilo-textos($color_subtitulo, 18px);
+                                }
+                            }
+                        }
+
+                        .descripcion {
+                            @include estilo-textos($color_parrafo, 15px);
+                        }
+
+                        .enlace-contenido {
+                            padding-top: 10px;
+
+                            .views-field-view-node {
+                                span a {
+                                    display: inline-block;
+                                    @include boton($color_blanco, $color_crema, 15px);
+                                }
+                            }
+                        }
+
+                    }
+                }
+            }
+        }
+       
+    }
+}

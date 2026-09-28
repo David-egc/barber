@@ -1,0 +1,13 @@
+.region-marca{
+    #block-barber-views-block-marcas-block-1{
+        background: $color_secundario;
+        padding: 65px 0;
+       text-align: center;
+        h2{
+            @include titulo-vistas;
+        }
+        .view-header{
+@include header-vistas($color_subtitulo);
+    }
+    }
+}

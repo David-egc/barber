@@ -1,0 +1,5 @@
+bookable_calendar.settings_form:
+  title: 'Bookable Calendar Settings'
+  base_route_name: bookable_calendar.settings_form
+  names:
+    - 'bookable_calendar.settings'

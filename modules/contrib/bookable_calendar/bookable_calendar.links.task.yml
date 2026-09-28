@@ -1,0 +1,139 @@
+entity.bookable_calendar.settings:
+  title: 'Settings'
+  route_name: entity.bookable_calendar.settings
+  base_route: entity.bookable_calendar.settings
+entity.bookable_calendar.view:
+  title: 'View'
+  route_name: entity.bookable_calendar.canonical
+  base_route: entity.bookable_calendar.canonical
+entity.bookable_calendar.edit_form:
+  title: 'Edit'
+  route_name: entity.bookable_calendar.edit_form
+  base_route: entity.bookable_calendar.canonical
+entity.bookable_calendar.report:
+  title: 'Report'
+  route_name: view.bookings.admin_route
+  base_route: entity.bookable_calendar.canonical
+entity.bookable_calendar.delete_form:
+  title: 'Delete'
+  route_name: entity.bookable_calendar.delete_form
+  base_route: entity.bookable_calendar.canonical
+  weight: 10
+
+bookable_calendar.content:
+  title: Bookable Calendar
+  route_name: entity.bookable_calendar.collection
+  base_route: system.admin_content
+
+bookable_calendar.calendars:
+  title: 'Bookable Calendars'
+  route_name: entity.bookable_calendar.collection
+  parent_id: bookable_calendar.content
+
+bookable_calendar.calendar_openings:
+  title: 'Calendar Openings'
+  route_name: entity.bookable_calendar_opening.collection
+  parent_id: bookable_calendar.content
+  weight: 1
+
+bookable_calendar.booking_contacts:
+  title: 'Booking Contacts'
+  route_name: entity.booking_contact.collection
+  parent_id: bookable_calendar.content
+  weight: 2
+
+bookable_calendar.bookings:
+  title: 'Bookings'
+  route_name: entity.booking.collection
+  parent_id: bookable_calendar.content
+  weight: 3
+
+bookable_calendar.opening_instances:
+  title: 'Opening Instances'
+  route_name: entity.bookable_calendar_opening_inst.collection
+  parent_id: bookable_calendar.content
+  weight: 4
+
+
+entity.bookable_calendar_opening.settings:
+  title: 'Settings'
+  route_name: entity.bookable_calendar_opening.settings
+  base_route: entity.bookable_calendar_opening.settings
+
+entity.bookable_calendar_opening.view:
+  title: 'View'
+  route_name: entity.bookable_calendar_opening.canonical
+  base_route: entity.bookable_calendar_opening.canonical
+entity.bookable_calendar_opening.edit_form:
+  title: 'Edit'
+  route_name: entity.bookable_calendar_opening.edit_form
+  base_route: entity.bookable_calendar_opening.canonical
+entity.bookable_calendar_opening.delete_form:
+  title: 'Delete'
+  route_name: entity.bookable_calendar_opening.delete_form
+  base_route: entity.bookable_calendar_opening.canonical
+  weight: 10
+
+entity.booking_contact.settings:
+  title: 'Settings'
+  route_name: entity.booking_contact.settings
+  base_route: entity.booking_contact.settings
+entity.booking_contact.view:
+  title: 'View'
+  route_name: entity.booking_contact.canonical
+  base_route: entity.booking_contact.canonical
+entity.booking_contact.edit_form:
+  title: 'Edit'
+  route_name: entity.booking_contact.edit_form
+  base_route: entity.booking_contact.canonical
+entity.booking_contact.delete_form:
+  title: 'Delete'
+  route_name: entity.booking_contact.delete_form
+  base_route: entity.booking_contact.canonical
+  weight: 10
+
+entity.booking.settings:
+  title: 'Settings'
+  route_name: entity.booking.settings
+  base_route: entity.booking.settings
+entity.booking.view:
+  title: 'View'
+  route_name: entity.booking.canonical
+  base_route: entity.booking.canonical
+entity.booking.edit_form:
+  title: 'Edit'
+  route_name: entity.booking.edit_form
+  base_route: entity.booking.canonical
+entity.booking.delete_form:
+  title: 'Delete'
+  route_name: entity.booking.delete_form
+  base_route: entity.booking.canonical
+  weight: 10
+
+entity.bookable_calendar_opening_inst.settings:
+  title: 'Settings'
+  route_name: entity.bookable_calendar_opening_inst.settings
+  base_route: entity.bookable_calendar_opening_inst.settings
+entity.bookable_calendar_opening_inst.view:
+  title: 'View'
+  route_name: entity.bookable_calendar_opening_inst.canonical
+  base_route: entity.bookable_calendar_opening_inst.canonical
+entity.bookable_calendar_opening_inst.edit_form:
+  title: 'Edit'
+  route_name: entity.bookable_calendar_opening_inst.edit_form
+  base_route: entity.bookable_calendar_opening_inst.canonical
+entity.bookable_calendar_opening_inst.delete_form:
+  title: 'Delete'
+  route_name: entity.bookable_calendar_opening_inst.delete_form
+  base_route: entity.bookable_calendar_opening_inst.canonical
+  weight: 10
+
+bookable_calendar.user.bookings:
+  route_name: view.booking_contact.user_bookings
+  base_route: entity.user.canonical
+  title: 'Your Bookings'
+
+bookable_calendar.settings_form:
+  route_name: bookable_calendar.settings_form
+  title: 'Bookable Calendar Settings'
+  base_route: bookable_calendar.settings_form

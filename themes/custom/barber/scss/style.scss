@@ -1,0 +1,38 @@
+// Importando utils
+@import 'utils/fonts';
+@import 'utils/variables';
+@import 'utils/general';
+@import 'utils/mixin';
+@import 'utils/formularios';
+
+// Importando sections
+@import 'sections/menu_secundario';
+@import 'sections/header';
+@import 'sections/carrusel';
+@import 'sections/servicios';
+@import 'sections/video';
+@import 'sections/estadisticas';
+@import 'sections/equipo';
+@import 'sections/testimonios';
+@import 'sections/reserva';
+@import 'sections/blog';
+@import 'sections/marcas';
+@import 'sections/footer';
+
+// Importando pages
+@import 'pages/home';
+@import 'pages/baner_paginas';
+@import 'pages/servicios';
+@import 'pages/blogs';
+@import 'pages/equipo';
+@import 'pages/galerias';
+// Importando node
+@import 'node/blog';
+@import 'node/contenido_secundario';
+@import 'node/barbero';
+// Importando responsive 
+@import 'responsive/sm';
+@import 'responsive/md';
+@import 'responsive/lg';
+@import 'responsive/xl';
+@import 'responsive/xxl';

@@ -1,0 +1,236 @@
+{#
+/**
+ * @file
+ * Theme override to display all the fields in a row.
+ *
+ * Available variables:
+ * - view: The view in use.
+ * - fields: A list of fields, each one contains:
+ *   - content: The output of the field.
+ *   - raw: The raw data for the field, if it exists. This is NOT output safe.
+ *   - class: The safe class ID to use.
+ *   - handler: The Views field handler controlling this field.
+ *   - inline: Whether or not the field should be inline.
+ *   - wrapper_element: An HTML element for a wrapper.
+ *   - wrapper_attributes: List of attributes for wrapper element.
+ *   - separator: An optional separator that may appear before a field.
+ *   - label: The field's label text.
+ *   - label_element: An HTML element for a label wrapper.
+ *   - label_attributes: List of attributes for label wrapper.
+ *   - label_suffix: Colon after the label.
+ *   - element_type: An HTML element for the field content.
+ *   - element_attributes: List of attributes for HTML element for field content.
+ *   - has_label_colon: A boolean indicating whether to display a colon after
+ *     the label.
+ *   - element_type: An HTML element for the field content.
+ *   - element_attributes: List of attributes for HTML element for field content.
+ * - row: The raw result from the query, with all data it fetched.
+ *
+ * @see template_preprocess_views_view_fields()
+ */
+#}
+<!-- <div class="info-contacto"> -->
+  
+    <!-- <div class="experiencia"> -->
+        {{ fields.field_experiencia.separator }}
+        {%- if fields.field_experiencia.wrapper_element -%}
+            <{{ fields.field_experiencia.wrapper_element }}{{ fields.field_experiencia.wrapper_attributes }}>
+        {%- endif %}
+        {%- if fields.field_experiencia.label -%}
+        {%- if fields.field_experiencia.label_element -%}
+        <{{ fields.field_experiencia.label_element }}{{ fields.field_experiencia.label_attributes }}
+        >{{ fields.field_experiencia.label }}{{ fields.field_experiencia.label_suffix }}</{{ fields.field_experiencia.label_element }}>
+    {%- else -%}
+        {{ fields.field_experiencia.label }}{{ fields.field_experiencia.label_suffix }}
+    {%- endif %}
+    {%- endif %}
+    {%- if fields.field_experiencia.element_type -%}
+    <{{ fields.field_experiencia.element_type }}{{ fields.field_experiencia.element_attributes }}
+    >{{ fields.field_experiencia.content }}
+</{{ fields.field_experiencia.element_type }}>
+{%- else -%}
+    {{ fields.field_experiencia.content }}
+        {%- endif %}
+        {%- if fields.field_experiencia.wrapper_element -%}
+            </{{ fields.field_experiencia.wrapper_element }}>
+        {%- endif %}
+<!-- </div> -->
+
+ 
+ <!-- <div class="anos-experiencia"> -->
+      {{ fields.field_anos_de_experiencia.separator }}
+      {%- if fields.field_anos_de_experiencia.wrapper_element -%}
+        <{{ fields.field_anos_de_experiencia.wrapper_element }}{{ fields.field_anos_de_experiencia.wrapper_attributes }}>
+      {%- endif %}
+      {%- if fields.field_anos_de_experiencia.label -%}
+      {%- if fields.field_anos_de_experiencia.label_element -%}
+      <{{ fields.field_anos_de_experiencia.label_element }}{{ fields.field_anos_de_experiencia.label_attributes }}
+      >{{ fields.field_anos_de_experiencia.label }}{{ fields.field_anos_de_experiencia.label_suffix }}</{{ fields.field_anos_de_experiencia.label_element }}>
+    {%- else -%}
+      {{ fields.field_anos_de_experiencia.label }}{{ fields.field_anos_de_experiencia.label_suffix }}
+    {%- endif %}
+    {%- endif %}
+    {%- if fields.field_anos_de_experiencia.element_type -%}
+    <{{ fields.field_anos_de_experiencia.element_type }}{{ fields.field_anos_de_experiencia.element_attributes }}
+    >{{ fields.field_anos_de_experiencia.content }}
+  </{{ fields.field_anos_de_experiencia.element_type }}>
+  {%- else -%}
+    {{ fields.field_anos_de_experiencia.content }}
+  {%- endif %}
+  {%- if fields.field_anos_de_experiencia.wrapper_element -%}
+</{{ fields.field_anos_de_experiencia.wrapper_element }}>
+{%- endif %}
+  <!-- </div> -->
+
+
+
+
+   <!-- <div class="direccion"> -->
+      {{ fields.field_direccion.separator }}
+      {%- if fields.field_direccion.wrapper_element -%}
+        <{{ fields.field_direccion.wrapper_element }}{{ fields.field_direccion.wrapper_attributes }}>
+      {%- endif %}
+      {%- if fields.field_direccion.label -%}
+      {%- if fields.field_direccion.label_element -%}
+      <{{ fields.field_direccion.label_element }}{{ fields.field_direccion.label_attributes }}
+      >{{ fields.field_direccion.label }}{{ fields.field_direccion.label_suffix }}</{{ fields.field_direccion.label_element }}>
+    {%- else -%}
+      {{ fields.field_direccion.label }}{{ fields.field_direccion.label_suffix }}
+    {%- endif %}
+    {%- endif %}
+    {%- if fields.field_direccion.element_type -%}
+    <{{ fields.field_direccion.element_type }}{{ fields.field_direccion.element_attributes }}
+    >{{ fields.field_direccion.content }}
+  </{{ fields.field_direccion.element_type }}>
+  {%- else -%}
+    {{ fields.field_direccion.content }}
+  {%- endif %}
+  {%- if fields.field_direccion.wrapper_element -%}
+</{{ fields.field_direccion.wrapper_element }}>
+{%- endif %}
+  <!-- </div> -->
+
+
+
+<!-- 
+<div class="telefono"> -->
+
+  
+{% if fields.field_telefono.content|render|striptags|trim is not empty %}
+      {{ fields.field_telefono.separator }}
+      {%- if fields.field_telefono.wrapper_element -%}
+        <{{ fields.field_telefono.wrapper_element }}{{ fields.field_telefono.wrapper_attributes }}>
+      {%- endif %}
+      {%- if fields.field_telefono.label -%}
+      {%- if fields.field_telefono.label_element -%}
+      <{{ fields.field_telefono.label_element }}{{ fields.field_telefono.label_attributes }}
+      >{{ fields.field_telefono.label }}{{ fields.field_telefono.label_suffix }}</{{ fields.field_telefono.label_element }}>
+    {%- else -%}
+      {{ fields.field_telefono.label }}{{ fields.field_telefono.label_suffix }}
+    {%- endif %}
+    {%- endif %}
+    {%- if fields.field_telefono.element_type -%}
+    <{{ fields.field_telefono.element_type }}{{ fields.field_telefono.element_attributes }}
+    >{{ fields.field_telefono.content }}
+  </{{ fields.field_telefono.element_type }}>
+  {%- else -%}
+    {{ fields.field_telefono.content }}
+  {%- endif %}
+  {%- if fields.field_telefono.wrapper_element -%}
+</{{ fields.field_telefono.wrapper_element }}>
+{%- endif %}
+  <!-- </div> -->
+  {%- endif %}
+
+<div class="container-fluid">
+<div class="cuentas row">
+<div class="facebook col-4">
+  
+      {{ fields.field_perfil_de_facebook.separator }}
+      {%- if fields.field_perfil_de_facebook.wrapper_element -%}
+        <{{ fields.field_perfil_de_facebook.wrapper_element }}{{ fields.field_perfil_de_facebook.wrapper_attributes }}>
+      {%- endif %}
+      {%- if fields.field_perfil_de_facebook.label -%}
+      {%- if fields.field_perfil_de_facebook.label_element -%}
+      <{{ fields.field_perfil_de_facebook.label_element }}{{ fields.field_perfil_de_facebook.label_attributes }}
+      >{{ fields.field_perfil_de_facebook.label }}{{ fields.field_perfil_de_facebook.label_suffix }}</{{ fields.field_perfil_de_facebook.label_element }}>
+    {%- else -%}
+      {{ fields.field_perfil_de_facebook.label }}{{ fields.field_perfil_de_facebook.label_suffix }}
+    {%- endif %}
+    {%- endif %}
+    {%- if fields.field_perfil_de_facebook.element_type -%}
+    <{{ fields.field_perfil_de_facebook.element_type }}{{ fields.field_perfil_de_facebook.element_attributes }}
+    >{{ fields.field_perfil_de_facebook.content }}
+  </{{ fields.field_perfil_de_facebook.element_type }}>
+  {%- else -%}
+    {{ fields.field_perfil_de_facebook.content }}
+  {%- endif %}
+  {%- if fields.field_perfil_de_facebook.wrapper_element -%}
+</{{ fields.field_perfil_de_facebook.wrapper_element }}>
+{%- endif %}
+  </div>
+
+
+
+<div class="instagram col-4">
+      {{ fields.field_perfil_de_instagram.separator }}
+      {%- if fields.field_perfil_de_instagram.wrapper_element -%}
+        <{{ fields.field_perfil_de_instagram.wrapper_element }}{{ fields.field_perfil_de_instagram.wrapper_attributes }}>
+      {%- endif %}
+      {%- if fields.field_perfil_de_instagram.label -%}
+      {%- if fields.field_perfil_de_instagram.label_element -%}
+      <{{ fields.field_perfil_de_instagram.label_element }}{{ fields.field_perfil_de_instagram.label_attributes }}
+      >{{ fields.field_perfil_de_instagram.label }}{{ fields.field_perfil_de_instagram.label_suffix }}</{{ fields.field_perfil_de_instagram.label_element }}>
+    {%- else -%}
+      {{ fields.field_perfil_de_instagram.label }}{{ fields.field_perfil_de_instagram.label_suffix }}
+    {%- endif %}
+    {%- endif %}
+    {%- if fields.field_perfil_de_instagram.element_type -%}
+    <{{ fields.field_perfil_de_instagram.element_type }}{{ fields.field_perfil_de_instagram.element_attributes }}
+    >{{ fields.field_perfil_de_instagram.content }}
+  </{{ fields.field_perfil_de_instagram.element_type }}>
+  {%- else -%}
+    {{ fields.field_perfil_de_instagram.content }}
+  {%- endif %}
+  {%- if fields.field_perfil_de_instagram.wrapper_element -%}
+</{{ fields.field_perfil_de_instagram.wrapper_element }}>
+{%- endif %}
+  </div>
+
+
+
+
+<div class="twitter col-4">
+      {{ fields.field_perfil_de_twitter.separator }}
+      {%- if fields.field_perfil_de_twitter.wrapper_element -%}
+        <{{ fields.field_perfil_de_twitter.wrapper_element }}{{ fields.field_perfil_de_twitter.wrapper_attributes }}>
+      {%- endif %}
+      {%- if fields.field_perfil_de_twitter.label -%}
+      {%- if fields.field_perfil_de_twitter.label_element -%}
+      <{{ fields.field_perfil_de_twitter.label_element }}{{ fields.field_perfil_de_twitter.label_attributes }}
+      >{{ fields.field_perfil_de_twitter.label }}{{ fields.field_perfil_de_twitter.label_suffix }}</{{ fields.field_perfil_de_twitter.label_element }}>
+    {%- else -%}
+      {{ fields.field_perfil_de_twitter.label }}{{ fields.field_perfil_de_twitter.label_suffix }}
+    {%- endif %}
+    {%- endif %}
+    {%- if fields.field_perfil_de_twitter.element_type -%}
+    <{{ fields.field_perfil_de_twitter.element_type }}{{ fields.field_perfil_de_twitter.element_attributes }}
+    >{{ fields.field_perfil_de_twitter.content }}
+  </{{ fields.field_perfil_de_twitter.element_type }}>
+  {%- else -%}
+    {{ fields.field_perfil_de_twitter.content }}
+  {%- endif %}
+  {%- if fields.field_perfil_de_twitter.wrapper_element -%}
+</{{ fields.field_perfil_de_twitter.wrapper_element }}>
+{%- endif %}
+  </div>
+
+</div>
+
+</div>
+
+
+
+<!-- </div>
+  
+ -->

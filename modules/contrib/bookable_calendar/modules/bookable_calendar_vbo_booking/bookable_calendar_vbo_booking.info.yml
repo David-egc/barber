@@ -1,0 +1,12 @@
+name: 'Bookable Calendar VBO Booking'
+type: module
+description: 'Allows bulk booking of Opening Instances.'
+package: 'Other'
+core_version_requirement: ^9.3 || ^10 || ^11
+dependencies:
+  - drupal:views_bulk_operations
+
+# Information added by Drupal.org packaging script on 2025-05-27
+version: '2.2.13'
+project: 'bookable_calendar'
+datestamp: 1748366861

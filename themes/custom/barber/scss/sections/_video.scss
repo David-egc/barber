@@ -1,0 +1,36 @@
+.region-video{
+    .video-home{
+        position: relative;
+        color: $color_blanco;
+        &::before{
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("../images/bg-video.jpg");
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-attachment: fixed;
+        }
+        #block-barber-views-block-video-block-1{
+           padding: 60px 0;
+            .view-content{
+              color: $color_blanco; 
+              .views-field-field-video{
+                position: relative;
+&::after{
+    content: "";
+    position: absolute;
+    top: 0;
+    width: 90%;
+    height: 90px;
+    background-image: url("../images/play-button-video.svg");
+}
+              } 
+            }
+        }
+    }
+}

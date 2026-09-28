@@ -1,0 +1,36 @@
+name: Barbería UCI
+description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+type: theme
+base theme: false
+core_version_requirement: ^10 || ^11
+logo: logo.png
+
+libraries:
+  - barber/slick
+  - barber/fontawesome
+  - barber/mibiblioteca
+  - barber/bootstrap
+
+regions:
+  menu_secundario: "Menu secundario"
+  header: "Encabezado"
+  menu_responsive: "Menu responsive"
+  carrusel: "Carrusel"
+  caracteristicas: "Características"
+  acerca_de: "Acerca de"
+  servicios: "Servicios"
+  content: "Contenido principal"
+  contenido_secundario: "Contenido Secundario"
+  video: "Seccion de video"
+  ofertas: "Ofertas"
+  estadisticas: "Estadisticas"
+  equipo_trabajo: "Mienbros de equipo de trabajo"
+  testimonios: "Testimonios"
+  reserva: "Reservar"
+  blog: "Blog"
+  marca: "Marcas"
+  footer1: "Footer 1"
+  footer2: "Footer 2"
+  footer3: "Footer 3"
+  footer4: "Footer 4"
+  footer5: "Footer 5"

@@ -1,0 +1,13 @@
+.bookable-calendar-admin-checkin .checked-in {
+  background-color: lightgray;
+  color: darkgray;
+}
+
+.bookable-calendar-admin-checkin .header {
+  background-color: #f5f5f2;
+  font-weight: bold;
+}
+
+.bookable-calendar-admin-checkin .clickable {
+  cursor: pointer;;
+}

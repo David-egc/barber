@@ -1,0 +1,3 @@
+use views bulk booking:
+  title: 'Allow bulk booking of Instances'
+  description: 'Allows the user to bulk book entities'

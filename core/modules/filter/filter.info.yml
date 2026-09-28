@@ -1,0 +1,13 @@
+name: Filter
+type: module
+description: 'Filters text content in preparation for display.'
+package: Core
+# version: VERSION
+configure: filter.admin_overview
+dependencies:
+  - drupal:user
+
+# Information added by Drupal.org packaging script on 2025-11-12
+version: '10.5.6'
+project: 'drupal'
+datestamp: 1762990926

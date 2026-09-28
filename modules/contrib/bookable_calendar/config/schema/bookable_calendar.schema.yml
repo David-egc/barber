@@ -1,0 +1,64 @@
+views.field.bookable_calendar_available_slots:
+  type: views_field
+  label: 'The available slots for an instance'
+views.field.bookable_calendar_max_slots:
+  type: views_field
+  label: 'The maximum slots for an instance'
+views.filter.bookable_calendar_available_slots_filter:
+  type: views.filter.numeric
+views.filter_value.bookable_calendar_available_slots_filter:
+  type: views.filter_value.numeric
+views.argument.bookable_calendar_available_slots_argument:
+  type: views.argument.numeric
+views.argument.bookable_calendar_minimum_available_slots_argument:
+  type: views.argument.numeric
+bookable_calendar.settings:
+  type: config_object
+  label: 'Bookable Calendar Settings'
+  mapping:
+    email_settings:
+      type: mapping
+      label: 'Admin Email Notification Settings'
+      mapping:
+        admin_email:
+          type: mapping
+          label: 'User Email Notification Settings'
+          mapping:
+            subject:
+              type: label
+              label: 'Admin Email Subject'
+            body:
+              type: text
+              label: 'Admin Email body'
+            subject_cancel:
+              type: label
+              label: 'Admin Email Subject for cancellations'
+            body_cancel:
+              type: text
+              label: 'Admin Email body for cancellations'
+        user_email:
+          type: mapping
+          label: 'User Email Notification Settings'
+          mapping:
+            subject:
+              type: label
+              label: 'User Email Subject'
+            body:
+              type: text
+              label: 'User Email body'
+            subject_cancel:
+              type: label
+              label: 'User Email Subject for cancellations'
+            body_cancel:
+              type: text
+              label: 'User Email body for cancellations'
+    sitewide_settings:
+      type: mapping
+      label: 'Bookable Calendar Settings'
+      mapping:
+        max_open_bookings:
+          type: integer
+          label: 'Max Open Sitewide Bookings Per User'
+        one_click_booking:
+          type: boolean
+          label: 'Enable "One-Click" Booking of Openings'

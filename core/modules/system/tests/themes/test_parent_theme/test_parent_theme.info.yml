@@ -1,0 +1,9 @@
+name: 'Theme test parent theme'
+type: theme
+# version: VERSION
+base theme: false
+
+# Information added by Drupal.org packaging script on 2025-11-12
+version: '10.5.6'
+project: 'drupal'
+datestamp: 1762990926

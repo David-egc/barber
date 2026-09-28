@@ -1,0 +1,29 @@
+bookable_calendar.add_form:
+  route_name: entity.bookable_calendar.add_form
+  title: 'Add bookable calendar'
+  appears_on:
+    - entity.bookable_calendar.collection
+
+bookable_calendar_opening.add_form:
+  route_name: entity.bookable_calendar_opening.add_form
+  title: 'Add bookable calendar opening'
+  appears_on:
+    - entity.bookable_calendar_opening.collection
+
+booking_contact.add_form:
+  route_name: entity.booking_contact.add_form
+  title: 'Add booking contact'
+  appears_on:
+    - entity.booking_contact.collection
+
+booking.add_form:
+  title: 'Add booking'
+  route_name: entity.booking.add_form
+  appears_on:
+    - entity.booking.collection
+
+bookable_calendar_opening_inst.add_form:
+  title: 'Add bookable calendar opening instance'
+  route_name: entity.bookable_calendar_opening_inst.add_form
+  appears_on:
+    - entity.bookable_calendar_opening_inst.collection

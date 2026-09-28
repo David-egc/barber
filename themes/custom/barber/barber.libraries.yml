@@ -1,0 +1,40 @@
+mibiblioteca:
+  css:
+    theme:
+      css/pushbar.css: {}
+      aos/aos.css: {}
+      aos/aosnext.css: {}
+      css/style.css: {}
+  js:
+    js/pushbar.js: {}
+    aos/aos.js: {}
+    aos/aosnext.js: {}
+    js/main.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupalSettings
+    - core/drupal
+    - core/once
+
+bootstrap:
+  css:
+    theme:
+      vendor/bootstrap/css/bootstrap.min.css: {}
+  js:
+    vendor/bootstrap/js/bootstrap.bundle.min.js: {}
+
+fontawesome:
+  css:
+    theme:
+      vendor/fontawesome/css/fontawesome.min.css: {}
+      vendor/fontawesome/css/brands.min.css: {}
+      vendor/fontawesome/css/solid.min.css: {}
+
+slick:
+  css:
+    theme:
+      vendor/slick/slick.css: {}
+      vendor/slick/slick-theme.css: {}
+  js:
+    vendor/slick/slick.js: {}
+    vendor/slick/slick.min.js: {}

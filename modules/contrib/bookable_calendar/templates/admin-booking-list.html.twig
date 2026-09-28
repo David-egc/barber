@@ -1,0 +1,52 @@
+{#
+/**
+ * @file
+ * Default theme implementation to present a booking entity.
+ *
+ * This template is used when viewing a canonical booking page,
+ *
+ * Available variables:
+ * - content: A list of content items. Use 'content' to print all content, or
+ *   print a subset such as 'content.title'.
+ * - attributes: HTML attributes for the container element.
+ *
+ * @see template_preprocess_booking()
+ */
+#}
+{{ attach_library('bookable_calendar/admin_checkin') }}
+<section id="bookable-calendar-admin-checkin" {{ attributes.addClass('bookable-calendar-admin-checkin') }}>
+  <table>
+    <thead>
+      <tr>
+        <th>Check In</th>
+        <th>Email</th>
+        <th>Created</th>
+        <th>Booking Date</th>
+        <th>Party Size</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% verbatim %}
+        <template v-for="bookings, date in byDate">
+          <tr class="header">
+            <td colspan="7">
+              {{ date }}
+            </td>
+          </tr>
+          <tr v-for="booking in bookings" class="clickable" v-bind:class="{ 'checked-in': booking.checked_in }" v-on:click='booking.checked_in = !booking.checked_in;checkInOut(booking.id, booking.checked_in)'>
+            <td class="action">
+              <input v-model="booking.checked_in" type="checkbox" name="check_in" v-on:change="checkInOut(booking.id, booking.checked_in)" />
+            </td>
+            <td>{{ booking.email }}</td>
+            <td>{{ booking.created }}</td>
+            <td>{{ booking.date }}</td>
+            <td>{{ booking.party_size }}</td>
+          </tr>
+        </template>
+        <tr v-if="bookings.length === 0">
+          <td colspan="7">No Bookings for Today</td>
+        </tr>
+      {% endverbatim %}
+    </tbody>
+  </table>
+</section>

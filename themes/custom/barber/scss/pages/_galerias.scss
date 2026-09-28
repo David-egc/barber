@@ -1,0 +1,61 @@
+.path-galerias{
+
+    .region-content{
+
+    .view-content{
+   
+    .item{
+        position: relative;
+
+       &:hover{
+        .views-field-view-node{
+            &::after{
+                opacity: 1;
+            }
+        }
+       } 
+.views-field-field-imagenes-1{
+    position: absolute;
+    top: 10px;
+    left: 30px;
+    @include estilo-textos($color_blanco,19px);
+    z-index: 1;
+}
+         .views-field-field-imagenes{
+            .colorbox{
+
+                img{
+                    border-radius: 3px;
+                }
+                .modal-content{
+                    display: none;
+                }
+            }
+            
+        }
+        .views-field-view-node{
+            position: relative;
+            display: inline-block;
+            bottom: 50%;
+            left:45%;
+            font-size: 0;
+            
+&::after{
+   
+    content: '\f030';
+    font-family: $font-icon-free;
+    font-size: 25px;
+    color: $color_crema;
+    opacity: 0;
+    transition: all .4s ease;
+}
+        }
+  
+    }
+}
+     .paginador {
+                @include paginador;
+            }
+
+    }
+}

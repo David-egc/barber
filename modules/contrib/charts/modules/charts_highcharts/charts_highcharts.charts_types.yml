@@ -1,0 +1,10 @@
+solidgauge:
+  label: 'Solid Gauge'
+  axis: 'y_only'
+  axis_inverted: false
+  stacking: false
+dumbbell:
+  label: 'Dumbbell'
+  axis: 'xy'
+  axis_inverted: true
+  stacking: false

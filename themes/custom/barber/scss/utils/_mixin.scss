@@ -1,0 +1,225 @@
+@mixin estilo-textos ($color, $size) {
+    color: $color;
+    font-size: $size;
+    line-height: 1.8;
+    font-family: 'Outfit Regular';
+}
+
+@mixin boton($color, $bg,$size) {
+    color: $color;
+    font-size: $size;
+    font-family: 'Outfit-Regular', sans-serif;
+    background: $bg;
+    padding: 14px 25px;
+    border-radius: 3px;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+@mixin menu-simple {
+    ul:not(.contextual-links) {
+        list-style: none;
+
+        li {
+            margin-inline: 5px;
+
+            a {
+                @include estilo-textos ($color_texto, 17px);
+                transition: all .4s;
+
+                &:hover {
+                    color: $color_crema;
+                    text-decoration: underline;
+                }
+
+            }
+        }
+    }
+}
+
+@mixin iconos($content, $size) {
+    content: $content;
+    font-size: $size;
+    padding-inline: 5px;
+    transition: all .5s;
+
+    &:hover {
+        color: $color_crema;
+    }
+}
+
+@mixin redes-sociales() {}
+
+@mixin titulo-vistas {
+    font-size: 17px;
+    font-family: 'Outfit-Regular', sans-serif;
+    font-weight: 700;
+    color: $color_crema;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    position: relative;
+    display: inline-block;
+    margin-left: 5px;
+
+    &::before {
+        position: absolute;
+        content: " ";
+        width: 10px;
+        height: 10px;
+        left: -20px;
+        top: 6px;
+        border-radius: 50%;
+        background: $color_azul;
+
+
+    }
+}
+
+@mixin header-vistas($color) {
+    font-size: 40px;
+    font-family: 'Outfit Bold';
+    text-transform: capitalize;
+    color: $color;
+    padding-bottom: 60px;
+}
+
+
+@mixin menu-superfish($color, $size, $hover) {
+   
+    ul.sf-menu {
+        margin: 0;
+ display:inline-block;
+        .sf-depth-1 {
+            background: transparent;
+
+            a {
+                color: $color;
+                font-size: $size;
+                text-transform: uppercase;
+               
+                font-family: 'Outfit Regular';
+                transition: all .5s;
+.sf-sub-indicator::after{
+content: '\f078';
+font-family: $font-icon-free;
+}
+            }
+
+            &:hover {
+                a {
+                    color: $hover;
+                    text-decoration: dashed;
+                }
+            }
+        }
+    }
+    ul.sf-hidden{
+.sf-depth-2 {
+    background: $color_blanco;
+}
+}
+
+}
+
+@mixin titulo-nodo($color,$size) {
+    font-size: $size;
+    font-family: 'Outfit Bold';
+    text-transform: capitalize;
+    color: $color;
+    padding-block: 30px;
+}
+
+@mixin paginador {
+
+
+    padding-top: 2rem;
+
+    ul {
+        padding: 0px;
+        display: flex;
+        margin: 2rem auto;
+        width: fit-content;
+
+
+        .pager__item {
+            padding: 8px 0px;
+            font-weight: 600;
+            border-radius: 3px;
+            height: 2rem;
+            padding: 3px;
+            margin: 5px;
+            border: .01rem solid $color_morado;
+            background: $color_blanco;
+           
+
+            a {
+                color: $color_subtitulo;
+                padding: 0px 9px 2px 8px;
+                border-radius: 50%;
+                transition: all .4s;
+
+            }
+        }
+
+        .pager__item.is-active,
+        .pager__item:hover {
+            color: $color_crema !important;
+            background: $color_crema;
+            transition: all 0.3s;
+            border-radius: 3px;
+        }
+
+        .pager__item.is-active a,
+        .pager__item:hover a {
+            color: #fff !important;
+        }
+
+        .pager__item::marker {
+            font-size: 0;
+        }
+
+        .pager__item.pager__item--first {
+border: none;
+         
+        }
+
+        .pager__item.pager__item--first:hover {
+            background: $color_crema;
+            transition: all 0.3s;
+        }
+
+        .pager__item.pager__item--first:hover a {
+            color: #fff !important;
+        }
+
+        .pageritem.pager__item--previous {
+            a {
+                padding: 0px 8px 2px 6px !important;
+                border-radius: 50%;
+            }
+        }
+
+        .pager__item.pager__item--next {
+            a {
+                padding: 0px 7px 2px 8px !important;
+                border-radius: 50%;
+            }
+        }
+
+        .pager__item.pager__item--last {
+
+           border: none;
+        }
+
+        .pageritem.pager__item--last:hover {
+            background: $colorprincipal;
+            transition: all 0.3s;
+        }
+
+        .pager__item.pager__item--last:hover a {
+            color: #fff !important;
+        }
+    }
+
+
+}

@@ -1,0 +1,243 @@
+uuid: 6a4448ca-da33-41b3-900a-0fd630f7b6c7
+langcode: en
+status: false
+dependencies:
+  config:
+    - eca.eca.process_gnq52ey
+id: process_gnq52ey
+label: 'Booking Notifications: Day Before'
+tags:
+  - ''
+documentation: ''
+filename: ''
+modeldata: |
+  <?xml version="1.0" encoding="UTF-8"?>
+  <bpmn2:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:qa="http://some-company/schema/bpmn/qa" id="sample-diagram" targetNamespace="http://bpmn.io/schema/bpmn" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd">
+    <bpmn2:process id="Process_gnq52EY" name="Booking Notifications: Day Before" isExecutable="false" camunda:versionTag="1.0">
+      <bpmn2:extensionElements/>
+      <bpmn2:startEvent id="Event_1ik0c05" name="Cron" camunda:modelerTemplate="org.drupal.event.eca_base:eca_cron">
+        <bpmn2:extensionElements>
+          <camunda:field name="frequency">
+            <camunda:string>* * * * *</camunda:string>
+          </camunda:field>
+          <camunda:properties>
+            <camunda:property name="pluginid" value="eca_base:eca_cron"/>
+          </camunda:properties>
+        </bpmn2:extensionElements>
+        <bpmn2:outgoing>Flow_135zfrw</bpmn2:outgoing>
+      </bpmn2:startEvent>
+      <bpmn2:task id="Activity_13degdw" name="Switch User" camunda:modelerTemplate="org.drupal.action.eca_switch_account">
+        <bpmn2:extensionElements>
+          <camunda:properties>
+            <camunda:property name="pluginid" value="eca_switch_account"/>
+          </camunda:properties>
+          <camunda:field name="user_id">
+            <camunda:string>1</camunda:string>
+          </camunda:field>
+        </bpmn2:extensionElements>
+        <bpmn2:incoming>Flow_135zfrw</bpmn2:incoming>
+        <bpmn2:outgoing>Flow_0cp8c0g</bpmn2:outgoing>
+      </bpmn2:task>
+      <bpmn2:sequenceFlow id="Flow_135zfrw" sourceRef="Event_1ik0c05" targetRef="Activity_13degdw"/>
+      <bpmn2:task id="Activity_1u1wk8z" name="List Notifications" camunda:modelerTemplate="org.drupal.action.eca_views_query">
+        <bpmn2:extensionElements>
+          <camunda:properties>
+            <camunda:property name="pluginid" value="eca_views_query"/>
+          </camunda:properties>
+          <camunda:field name="token_name">
+            <camunda:string>notificationlist</camunda:string>
+          </camunda:field>
+          <camunda:field name="view_id">
+            <camunda:string>booking_notifications</camunda:string>
+          </camunda:field>
+          <camunda:field name="display_id">
+            <camunda:string>day_before</camunda:string>
+          </camunda:field>
+          <camunda:field name="arguments">
+            <camunda:string>day_before</camunda:string>
+          </camunda:field>
+        </bpmn2:extensionElements>
+        <bpmn2:incoming>Flow_0cp8c0g</bpmn2:incoming>
+        <bpmn2:outgoing>Flow_0fe3yet</bpmn2:outgoing>
+      </bpmn2:task>
+      <bpmn2:sequenceFlow id="Flow_0cp8c0g" sourceRef="Activity_13degdw" targetRef="Activity_1u1wk8z"/>
+      <bpmn2:sequenceFlow id="Flow_0fe3yet" sourceRef="Activity_1u1wk8z" targetRef="Activity_0s1qmkn"/>
+      <bpmn2:task id="Activity_0s1qmkn" name="Trigger Notification" camunda:modelerTemplate="org.drupal.action.eca_trigger_content_entity_custom_event">
+        <bpmn2:extensionElements>
+          <camunda:properties>
+            <camunda:property name="pluginid" value="eca_trigger_content_entity_custom_event"/>
+          </camunda:properties>
+          <camunda:field name="event_id">
+            <camunda:string>booking_notification</camunda:string>
+          </camunda:field>
+          <camunda:field name="tokens">
+            <camunda:string/>
+          </camunda:field>
+          <camunda:field name="object">
+            <camunda:string>notificationlist</camunda:string>
+          </camunda:field>
+        </bpmn2:extensionElements>
+        <bpmn2:incoming>Flow_0fe3yet</bpmn2:incoming>
+      </bpmn2:task>
+      <bpmn2:startEvent id="Event_1pygffg" name="Notification" camunda:modelerTemplate="org.drupal.event.content_entity:custom">
+        <bpmn2:extensionElements>
+          <camunda:properties>
+            <camunda:property name="pluginid" value="content_entity:custom"/>
+          </camunda:properties>
+          <camunda:field name="event_id">
+            <camunda:string>booking_notification</camunda:string>
+          </camunda:field>
+        </bpmn2:extensionElements>
+        <bpmn2:outgoing>Flow_1lzr6ai</bpmn2:outgoing>
+      </bpmn2:startEvent>
+      <bpmn2:task id="Activity_0n0yapb" name="Mail" camunda:modelerTemplate="org.drupal.action.action_send_email_action">
+        <bpmn2:extensionElements>
+          <camunda:properties>
+            <camunda:property name="pluginid" value="action_send_email_action"/>
+          </camunda:properties>
+          <camunda:field name="recipient">
+            <camunda:string>[entity:email]</camunda:string>
+          </camunda:field>
+          <camunda:field name="subject">
+            <camunda:string>Reminder from [booking_contact:calendar_title]</camunda:string>
+          </camunda:field>
+          <camunda:field name="message">
+            <camunda:string>[booking_contact:values]</camunda:string>
+          </camunda:field>
+          <camunda:field name="replace_tokens">
+            <camunda:string>yes</camunda:string>
+          </camunda:field>
+        </bpmn2:extensionElements>
+        <bpmn2:incoming>Flow_1lzr6ai</bpmn2:incoming>
+        <bpmn2:outgoing>Flow_027gghy</bpmn2:outgoing>
+      </bpmn2:task>
+      <bpmn2:sequenceFlow id="Flow_1lzr6ai" camunda:modelerTemplate="org.drupal.condition.eca_entity_field_value" sourceRef="Event_1pygffg" targetRef="Activity_0n0yapb">
+        <bpmn2:extensionElements>
+          <camunda:properties>
+            <camunda:property name="pluginid" value="eca_entity_field_value"/>
+          </camunda:properties>
+          <camunda:field name="field_name">
+            <camunda:string>notifications</camunda:string>
+          </camunda:field>
+          <camunda:field name="operator">
+            <camunda:string>contains</camunda:string>
+          </camunda:field>
+          <camunda:field name="expected_value">
+            <camunda:string>day_before</camunda:string>
+          </camunda:field>
+          <camunda:field name="type">
+            <camunda:string>value</camunda:string>
+          </camunda:field>
+          <camunda:field name="case">
+            <camunda:string>no</camunda:string>
+          </camunda:field>
+          <camunda:field name="negate">
+            <camunda:string>yes</camunda:string>
+          </camunda:field>
+          <camunda:field name="entity">
+            <camunda:string>entity</camunda:string>
+          </camunda:field>
+        </bpmn2:extensionElements>
+      </bpmn2:sequenceFlow>
+      <bpmn2:task id="Activity_064ase7" name="Mark Notification As Sent" camunda:modelerTemplate="org.drupal.action.eca_set_field_value">
+        <bpmn2:extensionElements>
+          <camunda:properties>
+            <camunda:property name="pluginid" value="eca_set_field_value"/>
+          </camunda:properties>
+          <camunda:field name="method">
+            <camunda:string>append:not_full</camunda:string>
+          </camunda:field>
+          <camunda:field name="strip_tags">
+            <camunda:string>no</camunda:string>
+          </camunda:field>
+          <camunda:field name="trim">
+            <camunda:string>no</camunda:string>
+          </camunda:field>
+          <camunda:field name="field_name">
+            <camunda:string>notifications</camunda:string>
+          </camunda:field>
+          <camunda:field name="save_entity">
+            <camunda:string>yes</camunda:string>
+          </camunda:field>
+          <camunda:field name="field_value">
+            <camunda:string>day_before</camunda:string>
+          </camunda:field>
+          <camunda:field name="object">
+            <camunda:string>entity</camunda:string>
+          </camunda:field>
+        </bpmn2:extensionElements>
+        <bpmn2:incoming>Flow_027gghy</bpmn2:incoming>
+      </bpmn2:task>
+      <bpmn2:sequenceFlow id="Flow_027gghy" sourceRef="Activity_0n0yapb" targetRef="Activity_064ase7"/>
+      <bpmn2:textAnnotation id="TextAnnotation_0m99axw">
+        <bpmn2:text>If Notification Not Sent Already</bpmn2:text>
+      </bpmn2:textAnnotation>
+      <bpmn2:association id="Association_1mq8wsd" sourceRef="Flow_1lzr6ai" targetRef="TextAnnotation_0m99axw"/>
+    </bpmn2:process>
+    <bpmndi:BPMNDiagram id="sid-4e3a9848-2719-4a89-912f-8595d6bbd83e">
+      <bpmndi:BPMNPlane id="sid-9fd986e4-fa01-4415-b942-ce703e501b46" bpmnElement="Process_gnq52EY">
+        <bpmndi:BPMNShape id="Event_1ik0c05_di" bpmnElement="Event_1ik0c05">
+          <dc:Bounds x="202" y="142" width="36" height="36"/>
+          <bpmndi:BPMNLabel>
+            <dc:Bounds x="208" y="185" width="24" height="14"/>
+          </bpmndi:BPMNLabel>
+        </bpmndi:BPMNShape>
+        <bpmndi:BPMNShape id="Activity_13degdw_di" bpmnElement="Activity_13degdw">
+          <dc:Bounds x="290" y="120" width="100" height="80"/>
+          <bpmndi:BPMNLabel/>
+        </bpmndi:BPMNShape>
+        <bpmndi:BPMNShape id="Activity_1u1wk8z_di" bpmnElement="Activity_1u1wk8z">
+          <dc:Bounds x="450" y="120" width="100" height="80"/>
+          <bpmndi:BPMNLabel/>
+        </bpmndi:BPMNShape>
+        <bpmndi:BPMNShape id="Activity_0pivrdf_di" bpmnElement="Activity_0s1qmkn">
+          <dc:Bounds x="610" y="120" width="100" height="80"/>
+        </bpmndi:BPMNShape>
+        <bpmndi:BPMNShape id="Event_1pygffg_di" bpmnElement="Event_1pygffg">
+          <dc:Bounds x="202" y="382" width="36" height="36"/>
+          <bpmndi:BPMNLabel>
+            <dc:Bounds x="193" y="425" width="55" height="14"/>
+          </bpmndi:BPMNLabel>
+        </bpmndi:BPMNShape>
+        <bpmndi:BPMNShape id="Activity_0n0yapb_di" bpmnElement="Activity_0n0yapb">
+          <dc:Bounds x="370" y="360" width="100" height="80"/>
+          <bpmndi:BPMNLabel/>
+        </bpmndi:BPMNShape>
+        <bpmndi:BPMNShape id="Activity_064ase7_di" bpmnElement="Activity_064ase7">
+          <dc:Bounds x="540" y="360" width="100" height="80"/>
+          <bpmndi:BPMNLabel/>
+        </bpmndi:BPMNShape>
+        <bpmndi:BPMNShape id="TextAnnotation_0m99axw_di" bpmnElement="TextAnnotation_0m99axw">
+          <dc:Bounds x="290" y="290" width="100" height="55"/>
+          <bpmndi:BPMNLabel/>
+        </bpmndi:BPMNShape>
+        <bpmndi:BPMNEdge id="Flow_135zfrw_di" bpmnElement="Flow_135zfrw">
+          <di:waypoint x="238" y="160"/>
+          <di:waypoint x="290" y="160"/>
+        </bpmndi:BPMNEdge>
+        <bpmndi:BPMNEdge id="Flow_0cp8c0g_di" bpmnElement="Flow_0cp8c0g">
+          <di:waypoint x="390" y="160"/>
+          <di:waypoint x="450" y="160"/>
+        </bpmndi:BPMNEdge>
+        <bpmndi:BPMNEdge id="Flow_0fe3yet_di" bpmnElement="Flow_0fe3yet">
+          <di:waypoint x="550" y="160"/>
+          <di:waypoint x="610" y="160"/>
+        </bpmndi:BPMNEdge>
+        <bpmndi:BPMNEdge id="Flow_1lzr6ai_di" bpmnElement="Flow_1lzr6ai">
+          <di:waypoint x="238" y="400"/>
+          <di:waypoint x="370" y="400"/>
+          <bpmndi:BPMNLabel>
+            <dc:Bounds x="266" y="286" width="84" height="27"/>
+          </bpmndi:BPMNLabel>
+        </bpmndi:BPMNEdge>
+        <bpmndi:BPMNEdge id="Flow_027gghy_di" bpmnElement="Flow_027gghy">
+          <di:waypoint x="470" y="400"/>
+          <di:waypoint x="540" y="400"/>
+        </bpmndi:BPMNEdge>
+        <bpmndi:BPMNEdge id="Association_1mq8wsd_di" bpmnElement="Association_1mq8wsd">
+          <di:waypoint x="304" y="400"/>
+          <di:waypoint x="325" y="345"/>
+        </bpmndi:BPMNEdge>
+      </bpmndi:BPMNPlane>
+    </bpmndi:BPMNDiagram>
+  </bpmn2:definitions>

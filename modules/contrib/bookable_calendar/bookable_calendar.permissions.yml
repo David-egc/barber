@@ -1,0 +1,89 @@
+administer bookable_calendar configuration:
+  title: 'Administer bookable_calendar configuration'
+  restrict access: true
+
+administer bookable calendar:
+  title: 'Administer bookable calendar settings'
+  restrict access: true
+
+access bookable calendar overview:
+  title: 'Access bookable calendar overview page'
+
+delete bookable calendar:
+  title: Delete bookable calendar
+
+create bookable calendar:
+  title: Create bookable calendar
+
+view bookable calendar:
+  title: View bookable calendar
+
+edit bookable calendar:
+  title: Edit bookable calendar
+
+administer bookable calendar opening:
+  title: 'Administer bookable calendar opening settings'
+  restrict access: true
+
+access bookable calendar opening overview:
+  title: 'Access bookable calendar opening overview page'
+
+delete bookable calendar opening:
+  title: Delete bookable calendar opening
+
+create bookable calendar opening:
+  title: Create bookable calendar opening
+
+view bookable calendar opening:
+  title: View bookable calendar opening
+
+edit bookable calendar opening:
+  title: Edit bookable calendar opening
+
+administer booking contact:
+  title: 'Administer booking contact settings'
+  restrict access: true
+
+access booking contact overview:
+  title: 'Access booking contact overview page'
+
+delete booking contact:
+  title: Delete booking contact
+
+create booking contact:
+  title: Create booking contact
+
+view booking contact:
+  title: View booking contact
+
+edit booking contact:
+  title: Edit booking contact
+
+bypass booking contact checks:
+  title: 'Bypass Booking Contact Validation Checks'
+  description: 'Allows an admin to create Bookings even if they are outside what would normally be allowed (booking in past for example)'
+  restrict access: true
+
+administer booking:
+  title: 'Administer booking settings'
+  restrict access: true
+delete booking:
+  title: Delete booking
+create booking:
+  title: Create booking
+view booking:
+  title: View booking
+edit booking:
+  title: Edit booking
+
+administer bookable calendar opening instance:
+  title: 'Administer bookable calendar opening instance settings'
+  restrict access: true
+view bookable calendar opening instance:
+  title: View Bookable Calendar Opening Instance
+edit bookable calendar opening instance:
+  title: Edit Bookable Calendar Opening Instance
+delete bookable calendar opening instance:
+  title: Delete Bookable Calendar Opening Instance
+create bookable calendar opening instance:
+  title: Create Bookable Calendar Opening Instance

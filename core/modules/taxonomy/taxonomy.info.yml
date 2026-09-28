@@ -1,0 +1,14 @@
+name: Taxonomy
+type: module
+description: 'Enables the categorization of content.'
+package: Core
+# version: VERSION
+dependencies:
+  - drupal:node
+  - drupal:text
+configure: entity.taxonomy_vocabulary.collection
+
+# Information added by Drupal.org packaging script on 2025-11-12
+version: '10.5.6'
+project: 'drupal'
+datestamp: 1762990926

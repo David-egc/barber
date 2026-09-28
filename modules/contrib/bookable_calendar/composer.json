@@ -1,0 +1,23 @@
+{
+  "name": "bookable_calendar",
+  "type": "drupal-module",
+  "description": "Create an easy to use bookable calendar for people to book time.",
+  "keywords": [],
+  "homepage": "https://www.drupal.org/project/bookable_calendar",
+  "authors": [
+    {
+      "name": "Josh Fabean",
+      "homepage": "https://www.drupal.org/u/josh.fabean",
+      "role": "Maintainer"
+    }
+  ],
+  "minimum-stability": "dev",
+  "support": {
+    "issues": "https://www.drupal.org/project/issues/bookable_calendar",
+    "source": "http://cgit.drupalcode.org/bookable_calendar"
+  },
+  "license": "GPL-2.0+",
+  "require": {
+    "drupal/smart_date": "^4.0|^4.1"
+  }
+}

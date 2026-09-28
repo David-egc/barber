@@ -1,0 +1,103 @@
+.region-contenido-secundario{
+    #block-barber-views-block-post-populares-block-1{
+        background-color: rgb(11, 11, 49, 0.05);
+        h2{
+            @include estilo_textos($color_subtitulo,22px);
+        }
+
+        .views-row{
+            .item-post{
+             .imagen{
+                padding: 0;
+                border-radius: 3px;
+                overflow: hidden;
+             }  
+             .item-contenido{
+                .titulo{
+              .views-field-title{
+span a{
+    @include estilo-textos($color_subtitulo,15px);
+    
+}
+              }      
+                }
+             } 
+            }
+        }
+    }
+
+    #block-barber-views-block-informacion-de-contacto-block-1{
+         background-color: rgb(11, 11, 49, 0.05);
+         border-radius: 3px;
+        h2{
+     @include estilo_textos($color_subtitulo,22px);
+        }
+        .view-content{
+padding-top: 70px;
+.views-row{
+    padding: 0;
+    :nth-child(2n+1).views-field{
+        @include estilo-textos($color_blanco,19px);
+  background: $color_crema;
+    }
+     :nth-child(2n).views-field{
+        @include estilo-textos($color_subtitulo,19px);
+  
+    }
+    .views-field {
+   display: flex;
+    justify-content: space-between;
+ padding: 20px 30px;
+ @include estilo-textos($color_subtitulo,19px);
+ a{
+    font-size: 0;
+     color: $color_blanco;
+ }
+
+ @include estilo-textos($color_blanco,19px);
+
+
+ &.views-field-field-telefono{
+    //  background: $color_crema;
+     border-bottom: 1px solid rgb(255, 255, 255, 0.3);
+ }
+}
+.views-field-field-perfil-de-facebook{
+    display: flex;
+    justify-content: center;
+      border-radius: 3px;
+a {
+   
+    &::before{
+         @include iconos('\f39e',22px);
+                        font-family: $font-icon-brands;
+    }
+}
+}
+.views-field-field-perfil-de-instagram{
+     display: flex;
+    justify-content: center;
+      border-radius: 3px;
+    a{
+        &::before{
+              @include iconos('\f16d',22px);
+                        font-family: $font-icon-brands;
+        }
+    }
+}
+.views-field-field-perfil-de-twitter{
+     display: flex;
+    justify-content: center;
+    border-radius: 3px;
+    a{
+        &::after{
+              @include iconos('\f099',22px);
+                        font-family: $font-icon-brands;
+        }
+    }
+}
+}
+}
+        
+    }
+}

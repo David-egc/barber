@@ -1,0 +1,409 @@
+@charset "UTF-8";
+@font-face {
+  /*añade la fuente al sitio*/
+  font-family: "Odibee_Sans";
+  src: url("../fonts/Odibee_Sans/OdibeeSans-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  /*añade la fuente al sitio*/
+  font-family: "Prompt Medium";
+  src: url("../fonts/Prompt/Prompt-Medium.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  /*añade la fuente al sitio*/
+  font-family: "Poppins Regular";
+  src: url("../fonts/Poppins/Poppins-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  /*añade la fuente al sitio*/
+  font-family: "Poppins Italic";
+  src: url("../fonts/Poppins/Poppins-Italic.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Flaticon";
+  src: url("../fonts/Flaticon.eot");
+  src: url("../fonts/Flaticon.eot?#iefix") format("embedded-opentype"), url("../fonts/Flaticon.woff2") format("woff2"), url("../fonts/Flaticon.woff") format("woff"), url("../fonts/Flaticon.ttf") format("truetype"), url("../fonts/Flaticon.svg#Flaticon") format("svg");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+.pt-custom-60 {
+  padding-top: 60px;
+}
+
+body {
+  background: #fff;
+  font-family: "Poppins", sans-serif;
+  font-size: 18px;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+div [data-drupal-messages=""] {
+  padding-block: 40px;
+  text-align: center;
+  font-size: 23px;
+  font-weight: 500;
+}
+
+body:not(.user-logged-in) .encabezado .region-header #block-ecosustentar-account-menu ul:not(.contextual-links), body:not(.user-logged-in) .menu-responsive-area .region-menu-responsive #block-ecosustentar-menudecuentadeusuario ul:not(.contextual-links) {
+  list-style: none;
+  display: flex;
+  margin: 0;
+}
+body:not(.user-logged-in) .encabezado .region-header #block-ecosustentar-account-menu ul:not(.contextual-links) li:hover a, body:not(.user-logged-in) .menu-responsive-area .region-menu-responsive #block-ecosustentar-menudecuentadeusuario ul:not(.contextual-links) li:hover a {
+  background: #FFA307;
+}
+body:not(.user-logged-in) .encabezado .region-header #block-ecosustentar-account-menu ul:not(.contextual-links) li:hover a::after, body:not(.user-logged-in) .menu-responsive-area .region-menu-responsive #block-ecosustentar-menudecuentadeusuario ul:not(.contextual-links) li:hover a::after {
+  color: #FFFFFF !important;
+}
+body:not(.user-logged-in) .encabezado .region-header #block-ecosustentar-account-menu ul:not(.contextual-links) li a, body:not(.user-logged-in) .menu-responsive-area .region-menu-responsive #block-ecosustentar-menudecuentadeusuario ul:not(.contextual-links) li a {
+  padding: 10px 30px;
+  border-radius: 30px;
+  display: inline-block;
+  background: #3596BF;
+  text-transform: uppercase;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.2em;
+  color: #FFFFFF;
+  transition: all 0.4s;
+}
+body:not(.user-logged-in) .encabezado .region-header #block-ecosustentar-account-menu ul:not(.contextual-links) li a[href="/pw_EcoSustentAr/user/login"]::after, body:not(.user-logged-in) .menu-responsive-area .region-menu-responsive #block-ecosustentar-menudecuentadeusuario ul:not(.contextual-links) li a[href="/pw_EcoSustentAr/user/login"]::after {
+  content: "\f007";
+  font-family: "Font Awesome 7 Free";
+  font-size: 25px;
+  color: #FFFFFF !important;
+  padding: 10px;
+}
+body.user-logged-in .encabezado .region-header #block-ecosustentar-account-menu ul:not(.contextual-links), body.user-logged-in .menu-responsive-area .region-menu-responsive #block-ecosustentar-menudecuentadeusuario ul:not(.contextual-links) {
+  float: right;
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+body.user-logged-in .encabezado .region-header #block-ecosustentar-account-menu ul:not(.contextual-links) li, body.user-logged-in .menu-responsive-area .region-menu-responsive #block-ecosustentar-menudecuentadeusuario ul:not(.contextual-links) li {
+  list-style: none;
+  padding-inline: 10px;
+}
+body.user-logged-in .encabezado .region-header #block-ecosustentar-account-menu ul:not(.contextual-links) li:last-child a::after, body.user-logged-in .menu-responsive-area .region-menu-responsive #block-ecosustentar-menudecuentadeusuario ul:not(.contextual-links) li:last-child a::after {
+  content: "\f08b";
+  font-family: "Font Awesome 7 Free";
+  font-size: 25px;
+  color: #333333;
+}
+body.user-logged-in .encabezado .region-header #block-ecosustentar-account-menu ul:not(.contextual-links) li:last-child a:hover::after, body.user-logged-in .menu-responsive-area .region-menu-responsive #block-ecosustentar-menudecuentadeusuario ul:not(.contextual-links) li:last-child a:hover::after {
+  color: #FFA307;
+}
+body.user-logged-in .encabezado .region-header #block-ecosustentar-account-menu ul:not(.contextual-links) li a, body.user-logged-in .menu-responsive-area .region-menu-responsive #block-ecosustentar-menudecuentadeusuario ul:not(.contextual-links) li a {
+  font-size: 0;
+  transition: all 0.4s;
+}
+body.user-logged-in .encabezado .region-header #block-ecosustentar-account-menu ul:not(.contextual-links) li a:hover::after, body.user-logged-in .menu-responsive-area .region-menu-responsive #block-ecosustentar-menudecuentadeusuario ul:not(.contextual-links) li a:hover::after {
+  color: #FFA307 !important;
+}
+body.user-logged-in .encabezado .region-header #block-ecosustentar-account-menu ul:not(.contextual-links) li a[href="/pw_EcoSustentAr/user"]::after, body.user-logged-in .menu-responsive-area .region-menu-responsive #block-ecosustentar-menudecuentadeusuario ul:not(.contextual-links) li a[href="/pw_EcoSustentAr/user"]::after {
+  content: "\e065";
+  font-family: "Font Awesome 7 Free";
+  font-size: 25px;
+  color: #333333;
+}
+
+body:not(.user-logged-in) .menu-responsive-area .region-menu-responsive #block-ecosustentar-menudecuentadeusuario, body.user-logged-in .menu-responsive-area .region-menu-responsive #block-ecosustentar-menudecuentadeusuario {
+  padding-top: 25px;
+}
+body:not(.user-logged-in) .menu-responsive-area .region-menu-responsive #block-ecosustentar-menudecuentadeusuario ul:not(.contextual-links), body.user-logged-in .menu-responsive-area .region-menu-responsive #block-ecosustentar-menudecuentadeusuario ul:not(.contextual-links) {
+  float: initial;
+  justify-content: center;
+  padding: 0;
+}
+body:not(.user-logged-in) .menu-responsive-area .region-menu-responsive #block-ecosustentar-menudecuentadeusuario ul:not(.contextual-links) li a::after, body.user-logged-in .menu-responsive-area .region-menu-responsive #block-ecosustentar-menudecuentadeusuario ul:not(.contextual-links) li a::after {
+  color: #3596BF !important;
+}
+
+aside.menu-responsive-area .cerrar {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 10px;
+}
+aside.menu-responsive-area .cerrar .boton-cerrar {
+  background: transparent;
+  border: transparent;
+  margin-right: 30px;
+}
+aside.menu-responsive-area .cerrar .boton-cerrar .mdi-close::after {
+  content: "\f2d3";
+  font-size: 30px;
+  color: #3596BF;
+  font-family: "Font Awesome 7 Free";
+}
+aside.menu-responsive-area .cerrar .boton-cerrar:hover .mdi-close::after {
+  color: #FFA307;
+}
+aside.menu-responsive-area .region-menu-responsive #block-ecosustentar-marcadelsitio {
+  position: absolute;
+  top: 5px;
+  left: 10px;
+}
+aside.menu-responsive-area .region-menu-responsive #block-ecosustentar-marcadelsitio .site-logo img {
+  max-width: 230px;
+}
+aside.menu-responsive-area .region-menu-responsive #block-ecosustentar-navegacionprincipal-2 {
+  margin-top: 20px;
+}
+aside.menu-responsive-area .region-menu-responsive #block-ecosustentar-navegacionprincipal-2 ul:not(contextual-links) {
+  list-style: none;
+  padding: 0;
+}
+aside.menu-responsive-area .region-menu-responsive #block-ecosustentar-navegacionprincipal-2 ul:not(contextual-links) li {
+  text-align: center;
+  transition: all 0.5s;
+}
+aside.menu-responsive-area .region-menu-responsive #block-ecosustentar-navegacionprincipal-2 ul:not(contextual-links) li:hover a {
+  color: #FFA307;
+}
+aside.menu-responsive-area .region-menu-responsive #block-ecosustentar-navegacionprincipal-2 ul:not(contextual-links) li a {
+  padding: 10px 15px 10px 15px;
+  color: #333333;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-family: "Heebo Regular", sans-serif;
+  transition: all 0.4s;
+}
+aside.menu-responsive-area .region-menu-responsive #block-ecosustentar-navegacionprincipal-2 ul:not(contextual-links) li a.is-active {
+  color: #FFA307;
+}
+
+a {
+  text-decoration: none;
+}
+
+.region-messages {
+  margin-top: 20px;
+}
+
+em.placeholder {
+  background-color: unset;
+  font-style: normal;
+}
+em.placeholder a {
+  text-decoration: none;
+}
+
+.path-node .region-content #block-ecosustentar-primary-local-tasks,
+.path-taxonomy .region-content #block-ecosustentar-primary-local-tasks,
+.path-quiz .region-content #block-ecosustentar-primary-local-tasks,
+.path-search .region-content #block-ecosustentar-primary-local-tasks,
+.path-user .region-content #block-ecosustentar-primary-local-tasks {
+  text-align: center;
+  margin-bottom: 20px;
+}
+.path-node .region-content #block-ecosustentar-primary-local-tasks .tabs-wrapper,
+.path-taxonomy .region-content #block-ecosustentar-primary-local-tasks .tabs-wrapper,
+.path-quiz .region-content #block-ecosustentar-primary-local-tasks .tabs-wrapper,
+.path-search .region-content #block-ecosustentar-primary-local-tasks .tabs-wrapper,
+.path-user .region-content #block-ecosustentar-primary-local-tasks .tabs-wrapper {
+  display: inline-block;
+}
+.path-node .region-content #block-ecosustentar-primary-local-tasks .tabs-wrapper .tabs.tabs--primary,
+.path-taxonomy .region-content #block-ecosustentar-primary-local-tasks .tabs-wrapper .tabs.tabs--primary,
+.path-quiz .region-content #block-ecosustentar-primary-local-tasks .tabs-wrapper .tabs.tabs--primary,
+.path-search .region-content #block-ecosustentar-primary-local-tasks .tabs-wrapper .tabs.tabs--primary,
+.path-user .region-content #block-ecosustentar-primary-local-tasks .tabs-wrapper .tabs.tabs--primary {
+  border: 1px solid #ebebeb;
+  border-radius: 3px;
+}
+.path-node .region-content #block-ecosustentar-primary-local-tasks .tabs-wrapper .tabs.tabs--primary .tabs__tab a,
+.path-taxonomy .region-content #block-ecosustentar-primary-local-tasks .tabs-wrapper .tabs.tabs--primary .tabs__tab a,
+.path-quiz .region-content #block-ecosustentar-primary-local-tasks .tabs-wrapper .tabs.tabs--primary .tabs__tab a,
+.path-search .region-content #block-ecosustentar-primary-local-tasks .tabs-wrapper .tabs.tabs--primary .tabs__tab a,
+.path-user .region-content #block-ecosustentar-primary-local-tasks .tabs-wrapper .tabs.tabs--primary .tabs__tab a {
+  padding: 8px 12px;
+  color: #3596BF;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-family: "Heebo Regular", sans-serif;
+  font-size: 15px;
+  position: relative;
+}
+.path-node .region-content #block-ecosustentar-primary-local-tasks .tabs-wrapper .tabs.tabs--primary .tabs__tab a:after,
+.path-taxonomy .region-content #block-ecosustentar-primary-local-tasks .tabs-wrapper .tabs.tabs--primary .tabs__tab a:after,
+.path-quiz .region-content #block-ecosustentar-primary-local-tasks .tabs-wrapper .tabs.tabs--primary .tabs__tab a:after,
+.path-search .region-content #block-ecosustentar-primary-local-tasks .tabs-wrapper .tabs.tabs--primary .tabs__tab a:after,
+.path-user .region-content #block-ecosustentar-primary-local-tasks .tabs-wrapper .tabs.tabs--primary .tabs__tab a:after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #3596BF;
+  opacity: 0;
+  z-index: -1;
+  transition: all 0.5s;
+}
+.path-node .region-content #block-ecosustentar-primary-local-tasks .tabs-wrapper .tabs.tabs--primary .tabs__tab a:focus,
+.path-taxonomy .region-content #block-ecosustentar-primary-local-tasks .tabs-wrapper .tabs.tabs--primary .tabs__tab a:focus,
+.path-quiz .region-content #block-ecosustentar-primary-local-tasks .tabs-wrapper .tabs.tabs--primary .tabs__tab a:focus,
+.path-search .region-content #block-ecosustentar-primary-local-tasks .tabs-wrapper .tabs.tabs--primary .tabs__tab a:focus,
+.path-user .region-content #block-ecosustentar-primary-local-tasks .tabs-wrapper .tabs.tabs--primary .tabs__tab a:focus {
+  outline: solid 3px #3596BF;
+}
+.path-node .region-content #block-ecosustentar-primary-local-tasks .tabs-wrapper .tabs.tabs--primary .tabs__tab:hover a,
+.path-taxonomy .region-content #block-ecosustentar-primary-local-tasks .tabs-wrapper .tabs.tabs--primary .tabs__tab:hover a,
+.path-quiz .region-content #block-ecosustentar-primary-local-tasks .tabs-wrapper .tabs.tabs--primary .tabs__tab:hover a,
+.path-search .region-content #block-ecosustentar-primary-local-tasks .tabs-wrapper .tabs.tabs--primary .tabs__tab:hover a,
+.path-user .region-content #block-ecosustentar-primary-local-tasks .tabs-wrapper .tabs.tabs--primary .tabs__tab:hover a {
+  color: #FFFFFF;
+}
+.path-node .region-content #block-ecosustentar-primary-local-tasks .tabs-wrapper .tabs.tabs--primary .tabs__tab:hover a::after,
+.path-taxonomy .region-content #block-ecosustentar-primary-local-tasks .tabs-wrapper .tabs.tabs--primary .tabs__tab:hover a::after,
+.path-quiz .region-content #block-ecosustentar-primary-local-tasks .tabs-wrapper .tabs.tabs--primary .tabs__tab:hover a::after,
+.path-search .region-content #block-ecosustentar-primary-local-tasks .tabs-wrapper .tabs.tabs--primary .tabs__tab:hover a::after,
+.path-user .region-content #block-ecosustentar-primary-local-tasks .tabs-wrapper .tabs.tabs--primary .tabs__tab:hover a::after {
+  opacity: 1;
+}
+.path-node .region-content #block-ecosustentar-primary-local-tasks .tabs-wrapper .tabs.tabs--primary .tabs__tab .tabs__trigger:focus,
+.path-taxonomy .region-content #block-ecosustentar-primary-local-tasks .tabs-wrapper .tabs.tabs--primary .tabs__tab .tabs__trigger:focus,
+.path-quiz .region-content #block-ecosustentar-primary-local-tasks .tabs-wrapper .tabs.tabs--primary .tabs__tab .tabs__trigger:focus,
+.path-search .region-content #block-ecosustentar-primary-local-tasks .tabs-wrapper .tabs.tabs--primary .tabs__tab .tabs__trigger:focus,
+.path-user .region-content #block-ecosustentar-primary-local-tasks .tabs-wrapper .tabs.tabs--primary .tabs__tab .tabs__trigger:focus {
+  border-color: #FFA307;
+}
+.path-node .region-content #block-ecosustentar-primary-local-tasks .tabs-wrapper .tabs.tabs--primary .tabs__tab .tabs__trigger .tabs__trigger-icon span,
+.path-taxonomy .region-content #block-ecosustentar-primary-local-tasks .tabs-wrapper .tabs.tabs--primary .tabs__tab .tabs__trigger .tabs__trigger-icon span,
+.path-quiz .region-content #block-ecosustentar-primary-local-tasks .tabs-wrapper .tabs.tabs--primary .tabs__tab .tabs__trigger .tabs__trigger-icon span,
+.path-search .region-content #block-ecosustentar-primary-local-tasks .tabs-wrapper .tabs.tabs--primary .tabs__tab .tabs__trigger .tabs__trigger-icon span,
+.path-user .region-content #block-ecosustentar-primary-local-tasks .tabs-wrapper .tabs.tabs--primary .tabs__tab .tabs__trigger .tabs__trigger-icon span {
+  border-color: #3596BF;
+}
+
+.maintenance-page header img {
+  width: 500px;
+}
+.maintenance-page header h1 {
+  padding-top: 15px;
+  text-align: center;
+}
+.maintenance-page header h1 a {
+  font-family: "Heebo Regular", sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  line-height: 44px;
+  display: inline-block;
+  color: #3596BF;
+  display: inline-block;
+}
+.maintenance-page header h1 a:hover {
+  color: #FFA307;
+}
+.maintenance-page main {
+  font-size: 21px;
+  padding-top: 70px;
+  max-width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.path-user form[data-drupal-selector=user-login-form],
+.path-user form[data-drupal-selector=user-pass] {
+  max-width: 565px;
+  margin-right: auto;
+  margin-left: auto;
+}
+.path-user form[data-drupal-selector=user-login-form] .form-item:hover label, .path-user form[data-drupal-selector=user-login-form] .form-item:focus label,
+.path-user form[data-drupal-selector=user-pass] .form-item:hover label,
+.path-user form[data-drupal-selector=user-pass] .form-item:focus label {
+  color: #FFA307;
+}
+.path-user form[data-drupal-selector=user-login-form] .form-item:hover label::after, .path-user form[data-drupal-selector=user-login-form] .form-item:focus label::after,
+.path-user form[data-drupal-selector=user-pass] .form-item:hover label::after,
+.path-user form[data-drupal-selector=user-pass] .form-item:focus label::after {
+  color: #FFA307;
+}
+.path-user form[data-drupal-selector=user-login-form] .form-item:hover input[type=text],
+.path-user form[data-drupal-selector=user-login-form] .form-item:hover input[type=password], .path-user form[data-drupal-selector=user-login-form] .form-item:focus input[type=text],
+.path-user form[data-drupal-selector=user-login-form] .form-item:focus input[type=password],
+.path-user form[data-drupal-selector=user-pass] .form-item:hover input[type=text],
+.path-user form[data-drupal-selector=user-pass] .form-item:hover input[type=password],
+.path-user form[data-drupal-selector=user-pass] .form-item:focus input[type=text],
+.path-user form[data-drupal-selector=user-pass] .form-item:focus input[type=password] {
+  outline: 0.15rem solid #FFA307;
+  border-color: transparent;
+}
+.path-user form[data-drupal-selector=user-login-form] .form-item label,
+.path-user form[data-drupal-selector=user-pass] .form-item label {
+  font-family: "Heebo Regular", sans-serif;
+  color: #3596BF;
+  font-weight: 700;
+  text-transform: uppercase;
+  text-align: center;
+  transition: all 0.5s ease;
+}
+.path-user form[data-drupal-selector=user-login-form] .form-item label::after,
+.path-user form[data-drupal-selector=user-pass] .form-item label::after {
+  content: "*";
+  color: #333333;
+  margin-left: 5px;
+}
+.path-user form[data-drupal-selector=user-login-form] .form-item input[type=text],
+.path-user form[data-drupal-selector=user-login-form] .form-item input[type=password],
+.path-user form[data-drupal-selector=user-pass] .form-item input[type=text],
+.path-user form[data-drupal-selector=user-pass] .form-item input[type=password] {
+  border-radius: 4px;
+  border: 0.15rem solid #3596BF;
+  transition: all 0.5s ease;
+  padding: 5px 10px;
+  outline: none;
+  width: 100%;
+}
+.path-user form[data-drupal-selector=user-login-form] .form-item input[type=text].error,
+.path-user form[data-drupal-selector=user-login-form] .form-item input[type=password].error,
+.path-user form[data-drupal-selector=user-pass] .form-item input[type=text].error,
+.path-user form[data-drupal-selector=user-pass] .form-item input[type=password].error {
+  border-color: #bd3737;
+}
+.path-user form[data-drupal-selector=user-login-form] .form-actions,
+.path-user form[data-drupal-selector=user-pass] .form-actions {
+  margin-top: 24px;
+  text-align: center;
+  margin-bottom: 50px;
+}
+.path-user form[data-drupal-selector=user-login-form] .form-actions input[type=submit],
+.path-user form[data-drupal-selector=user-pass] .form-actions input[type=submit] {
+  color: #FFFFFF;
+  text-transform: uppercase;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.2em;
+  padding: 10px 30px;
+  border-radius: 30px;
+  background: #3596BF;
+  border: none;
+  transition: all 0.4s ease;
+}
+.path-user form[data-drupal-selector=user-login-form] .form-actions input[type=submit]:hover,
+.path-user form[data-drupal-selector=user-pass] .form-actions input[type=submit]:hover {
+  background: #FFA307;
+}
+
+/* Small devices (landscape phones, 576px and up) */
+/* Medium devices (tablets, 768px and up) */
+/* Large devices (desktops, 992px and up) */
+/* X-Large devices (large desktops, 1200px and up) */
+/* XX-Large devices (larger desktops, 1400px and up) *//*# sourceMappingURL=style.css.map */

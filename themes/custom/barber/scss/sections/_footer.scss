@@ -1,0 +1,134 @@
+.site-footer{
+    background-color: $color_morado;
+    color: $color_blanco;
+    .region-footer1{
+        #block-barber-marcadelsitio{
+            .site-logo img {
+                height: 120px
+            }
+            .site-slogan{
+                @include estilo-textos($color_texto, 16px)
+            }
+        }
+        #block-barber-redessociales{
+            @include menu-simple;
+            ul:not(.contextual-links){  
+                display: inline-flex;
+            padding: 0;
+            li{
+               
+  background: rgb(255, 255, 255, 0.15);
+                     padding: 5px;
+                     border-radius: 50%;
+                a{
+                    font-size: 0;
+                 &:hover{
+                    text-decoration: none;
+                 }
+                    &[title="Facebook"]::before{
+                        @include iconos('\f39e',18px);
+                        font-family: $font-icon-brands;
+                    }
+                    &[title="Instagram"]::before{
+                        @include iconos('\f16d',18px);
+                        font-family: $font-icon-brands;
+                    }
+                    &[title="Twitter"]::before{
+                        @include iconos('\f099',18px);
+                        font-family: $font-icon-brands;
+                    }
+                    &[title="Youtube"]::before{
+                        @include iconos('\f167',18px);
+                        font-family: $font-icon-brands;
+                    }
+                }
+            }
+        }
+          
+
+        }
+    }
+.region-footer2{
+    #block-barber-informaciondecontacto{
+        h2{
+            @include estilo-textos($color_blanco,18px );
+            font-weight: 700;
+            margin-bottom: 25px
+        }
+        .field{
+            @include estilo-textos($color_texto,15px );
+            margin-block: 5px;
+            transition: all .5s ;
+            &:hover{
+                color: $color_crema;
+            }
+
+            &.field--name-field-telefono::before{
+               
+                font-family: $font-icon-free;
+               @include iconos( '\f3cd',15px);
+            }
+
+            &.field--name-field-direccion::before{
+                @include iconos('\f3c5',15px);
+                font-family: $font-icon-free;
+            }
+            &.field--name-field-correo::before{
+                @include iconos( '\f0e0',15px);
+                font-family: $font-icon-free;
+            }
+            &.field--name-field-horario::before{
+                font-family: $font-icon-free;
+                @include iconos('\f017', 15px);
+            }
+            
+        }
+    }
+}
+.region-footer3{
+    #block-barber-enlacesrapidos{
+           h2{
+            @include estilo-textos($color_blanco,18px );
+            font-weight: 700;
+              margin-bottom: 25px
+        }
+        @include menu-simple;
+    }
+}
+
+    .region-footer5{
+        border-top: 1px solid rgb(255, 255, 255, 0.15);
+        padding: 20px 0;
+        display: flex;
+        justify-content: space-between;
+        #block-barber-copyrigth{
+            p{
+                @include estilo-textos($color_blanco,18px);
+              
+            }
+           
+        }
+        #block-barber-piedepagina{
+            text-align: right;
+            
+            ul:not(.contextual-links){
+display: inline-flex;
+list-style: none;
+ li:not(:last-child){
+         border-right: .1rem solid rgba(255, 255, 255, 0.15);
+         padding-right: 5px;
+    }
+li{
+    margin-inline: 5px;
+   
+   
+    a{
+       @include estilo-textos ($color_texto,18px);
+     
+
+    }
+}
+            }
+        }
+    }
+}

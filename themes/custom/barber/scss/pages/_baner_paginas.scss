@@ -1,0 +1,47 @@
+#block-barber-views-block-baner-paginas-block-1{
+    position: relative;
+    &::after{
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.6;
+  background: #121630;
+   }
+.view-content{
+    .video-item{
+         .views-field-field-imagen{
+ img{
+    width: 100%;
+  
+  }
+    }
+    }
+   
+}
+ 
+   
+}
+#block-barber-page-title {
+    position: relative;
+top: -250px;
+text-align: center;
+   h1{
+    @include header-vistas($color_blanco);
+   }
+}
+
+#block-barber-views-block-baner-nodos-block-1{
+     position: relative;
+top: -250px;
+text-align: center;
+.view-content{
+    .views-field-type{
+        span {
+     @include header-vistas($color_blanco);
+        }
+    }
+}
+}

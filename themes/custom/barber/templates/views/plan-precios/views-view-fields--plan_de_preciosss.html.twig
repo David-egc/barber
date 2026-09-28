@@ -1,0 +1,86 @@
+{#
+/**
+ * @file
+ * Theme override to display all the fields in a row.
+ *
+ * Available variables:
+ * - view: The view in use.
+ * - fields: A list of fields, each one contains:
+ *   - content: The output of the field.
+ *   - raw: The raw data for the field, if it exists. This is NOT output safe.
+ *   - class: The safe class ID to use.
+ *   - handler: The Views field handler controlling this field.
+ *   - inline: Whether or not the field should be inline.
+ *   - wrapper_element: An HTML element for a wrapper.
+ *   - wrapper_attributes: List of attributes for wrapper element.
+ *   - separator: An optional separator that may appear before a field.
+ *   - label: The field's label text.
+ *   - label_element: An HTML element for a label wrapper.
+ *   - label_attributes: List of attributes for label wrapper.
+ *   - label_suffix: Colon after the label.
+ *   - element_type: An HTML element for the field content.
+ *   - element_attributes: List of attributes for HTML element for field content.
+ *   - has_label_colon: A boolean indicating whether to display a colon after
+ *     the label.
+ *   - element_type: An HTML element for the field content.
+ *   - element_attributes: List of attributes for HTML element for field content.
+ * - row: The raw result from the query, with all data it fetched.
+ *
+ * @see template_preprocess_views_view_fields()
+ */
+#}
+<div class="item-plan-precios">
+   
+ <div class="item-contenido">
+
+ <div class="titulo">
+      {{ fields.title.separator }}
+      {%- if fields.title.wrapper_element -%}
+        <{{ fields.title.wrapper_element }}{{ fields.title.wrapper_attributes }}>
+      {%- endif %}
+      {%- if fields.title.label -%}
+      {%- if fields.title.label_element -%}
+      <{{ fields.title.label_element }}{{ fields.title.label_attributes }}
+      >{{ fields.title.label }}{{ fields.title.label_suffix }}</{{ fields.title.label_element }}>
+    {%- else -%}
+      {{ fields.title.label }}{{ fields.title.label_suffix }}
+    {%- endif %}
+    {%- endif %}
+    {%- if fields.title.element_type -%}
+    <{{ fields.title.element_type }}{{ fields.title.element_attributes }}
+    >{{ fields.title.content }}
+  </{{ fields.title.element_type }}>
+  {%- else -%}
+    {{ fields.title.content }}
+  {%- endif %}
+  {%- if fields.title.wrapper_element -%}
+</{{ fields.title.wrapper_element }}>
+{%- endif %}
+  </div>
+
+   <div class="precio">
+        {{ fields.field_precio.separator }}
+        {%- if fields.field_precio.wrapper_element -%}
+            <{{ fields.field_precio.wrapper_element }}{{ fields.field_precio.wrapper_attributes }}>
+        {%- endif %}
+        {%- if fields.field_precio.label -%}
+        {%- if fields.field_precio.label_element -%}
+        <{{ fields.field_precio.label_element }}{{ fields.field_precio.label_attributes }}
+        >{{ fields.field_precio.label }}{{ fields.field_precio.label_suffix }}</{{ fields.field_precio.label_element }}>
+    {%- else -%}
+        {{ fields.field_precio.label }}{{ fields.field_precio.label_suffix }}
+    {%- endif %}
+    {%- endif %}
+    {%- if fields.field_precio.element_type -%}
+    <{{ fields.field_precio.element_type }}{{ fields.field_precio.element_attributes }}
+    >{{ fields.field_precio.content }}
+</{{ fields.field_precio.element_type }}>
+{%- else -%}
+    {{ fields.field_precio.content }}
+        {%- endif %}
+        {%- if fields.field_precio.wrapper_element -%}
+            </{{ fields.field_precio.wrapper_element }}>
+        {%- endif %}
+</div>
+  </div>
+

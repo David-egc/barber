@@ -1,0 +1,98 @@
+{#
+/**
+* @file
+* Theme override to display all the fields in a row.
+*
+* Available variables:
+* - view: The view in use.
+* - fields: A list of fields, each one contains:
+* - content: The output of the field.
+* - raw: The raw data for the field, if it exists. This is NOT output safe.
+* - class: The safe class ID to use.
+* - handler: The Views field handler controlling this field.
+* - inline: Whether or not the field should be inline.
+* - wrapper_element: An HTML element for a wrapper.
+* - wrapper_attributes: List of attributes for wrapper element.
+* - separator: An optional separator that may appear before a field.
+* - label: The field's label text.
+* - label_element: An HTML element for a label wrapper.
+* - label_attributes: List of attributes for label wrapper.
+* - label_suffix: Colon after the label.
+* - element_type: An HTML element for the field content.
+* - element_attributes: List of attributes for HTML element for field content.
+* - has_label_colon: A boolean indicating whether to display a colon after
+* the label.
+* - element_type: An HTML element for the field content.
+* - element_attributes: List of attributes for HTML element for field content.
+* - row: The raw result from the query, with all data it fetched.
+*
+* @see template_preprocess_views_view_fields()
+*/
+#}
+<div class="enlaces d-flex  flex-column flex-md-row">
+
+  <div class="enlace-resultados">
+    {{ fields.view_quiz_1.separator }}
+    {%- if fields.view_quiz_1.wrapper_element -%}
+    <{{ fields.view_quiz_1.wrapper_element }}{{
+    fields.view_quiz_1.wrapper_attributes }}>
+    {%- endif %}
+    {%- if fields.view_quiz_1.label -%}
+    {%- if fields.view_quiz_1.label_element -%}
+    <{{ fields.view_quiz_1.label_element }}{{
+    fields.view_quiz_1.label_attributes }}
+    >{{ fields.view_quiz_1.label }}{{ fields.view_quiz_1.label_suffix }}</{{
+    fields.view_quiz_1.label_element }}>
+    {%- else -%}
+    {{ fields.view_quiz_1.label }}{{ fields.view_quiz_1.label_suffix }}
+    {%- endif %}
+    {%- endif %}
+    {%- if fields.view_quiz_1.element_type -%}
+    <{{ fields.view_quiz_1.element_type }}{{
+    fields.view_quiz_1.element_attributes }}
+    >{{ fields.view_quiz_1.content }}
+    </{{ fields.view_quiz_1.element_type }}>
+    {%- else -%}
+    {{ fields.view_quiz_1.content }}
+    {%- endif %}
+    {%- if fields.view_quiz_1.wrapper_element -%}
+    </{{ fields.view_quiz_1.wrapper_element }}>
+    {%- endif %}
+  </div>
+
+ 
+   
+    <div class="enlace-cuestionario">
+      {{ fields.view_quiz.separator }}
+      {%- if fields.view_quiz.wrapper_element -%}
+      <{{ fields.view_quiz.wrapper_element }}{{
+      fields.view_quiz.wrapper_attributes }}>
+      {%- endif %}
+      {%- if fields.view_quiz.label -%}
+      {%- if fields.view_quiz.label_element -%}
+      <{{ fields.view_quiz.label_element }}{{
+      fields.view_quiz.label_attributes }}
+      >{{ fields.view_quiz.label }}{{
+      fields.view_quiz.label_suffix }}</{{
+      fields.view_quiz.label_element }}>
+      {%- else -%}
+      {{ fields.view_quiz.label }}{{
+      fields.view_quiz.label_suffix }}
+      {%- endif %}
+      {%- endif %}
+      {%- if fields.view_quiz.element_type -%}
+      <{{ fields.view_quiz.element_type }}{{
+      fields.view_quiz.element_attributes }}
+      >{{ fields.view_quiz.content }}
+      </{{ fields.view_quiz.element_type }}>
+      {%- else -%}
+      {{ fields.view_quiz.content }}
+      {%- endif %}
+      {%- if fields.view_quiz.wrapper_element -%}
+      </{{ fields.view_quiz.wrapper_element }}>
+      {%- endif %}
+    </div>
+
+  
+
+</div>

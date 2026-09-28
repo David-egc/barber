@@ -1,0 +1,35 @@
+.region-menu-secundario{
+  position: fixed;
+  z-index: 2;
+  left: 0;
+  width: 100%;
+  padding: 20px 0;
+  background-color: $color_blanco;
+  box-shadow: 0 2px 28px 0 rgba(0, 0, 0, 0.06);
+  #block-barber-marcadelsitio-2{
+      .site-logo{
+        img{
+           filter: invert(100%);
+ width: 200px;
+        }
+       
+    }
+  }
+  #block-barber-navegacionprincipal-2{
+    text-align: center;
+     @include menu-superfish($color_subtitulo,14px,$color_crema);
+  }
+  #block-barber-reservar-2{
+    @include menu-simple;
+    ul:not(.contextual-links){
+      display: inline-flex;
+      margin: 0;
+
+      li a{
+        @include boton($color_blanco,$color_crema,14px);
+      }
+
+    }
+
+  }
+}

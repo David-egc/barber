@@ -1,0 +1,17 @@
+bookable_calendar: null
+_core:
+  default_config_hash: rFsOrm9hEodzQKTP5NOaP9VGrwkKEXXbAl61KX4xCac
+email_settings:
+  admin_email:
+    subject: 'A new booking was created for [booking_contact:calendar_title]'
+    body: "A new booking was created:\r\n\r\n[booking_contact:values]"
+    subject_cancel: 'A booking was cancelled for [booking_contact:calendar_title]'
+    body_cancel: "The booking was cancelled: \n [booking_contact:values]"
+  user_email:
+    subject: 'Your booking is confirmed'
+    body: "You can view your booking here: [booking_contact:hashed_login_url]\r\n\r\n[booking_contact:values]"
+    subject_cancel: 'Your booking was cancelled'
+    body_cancel: "Your booking was cancelled: \n [booking_contact:values]"
+sitewide_settings:
+  max_open_bookings: '0'
+  one_click_booking: 0

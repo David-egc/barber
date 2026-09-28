@@ -1,0 +1,6 @@
+<ruleset name="youtube_field">
+  <description>PHP CodeSniffer configuration for YouTube Field.</description>
+  <file>.</file>
+  <rule ref="Drupal"/>
+  <rule ref="DrupalPractice"/>
+</ruleset>

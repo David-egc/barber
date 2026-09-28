@@ -1,0 +1,27 @@
+<?php
+
+/**
+ * @file
+ * Provides the hooks for the module.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Form alters.
+ */
+function bookable_calendar_vbo_booking_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  if ($form_id === 'views_bulk_operations_configure_action') {
+    if (array_key_exists('bookable_calendar_opening_inst', $form)) {
+      if (array_key_exists('bookable_calendar_opening_inst', $form['bookable_calendar_opening_inst'])) {
+        $current_user = \Drupal::currentUser();
+        $user = \Drupal::entityTypeManager()->getStorage('user')->load($current_user->id()) ?? User::getAnonymousUser();
+        if ($current_user->isAuthenticated()) {
+          $user_email = $current_user->getEmail();
+          $form['bookable_calendar_opening_inst']['bookable_calendar_opening_inst']['email']['widget'][0]['value']['#default_value'] = $user_email;
+          $form['bookable_calendar_opening_inst']['bookable_calendar_opening_inst']['uid']['widget'][0]['target_id']['#default_value'] = \Drupal::entityTypeManager()->getStorage('user')->load($user->id());
+        }
+      }
+    }
+  }
+}

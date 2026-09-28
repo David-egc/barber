@@ -1,0 +1,123 @@
+<?php
+use Drupal\taxonomy\Entity\Term;
+use Drupal\views\Views;
+use Drupal\Core\Render\Element;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Render\Element\StatusMessages;
+use Drupal\Core\Url;
+
+
+function barber_form_contact_message_feedback_form_alter(&$form, &$form_state, $form_id)
+{
+    // Añadiendo  clase a todo el formulario
+   $form['#prefix'] = '<div class="container-fluid ">';
+  $form['#suffix'] = '</div>';
+  // Añadiendo clases de bootstrap a campos de formulario
+  $form['name']['#wrapper_attributes']['class'][] = ' col-md-6';
+  $form['name']['#wrapper_attributes']['class'][] = ' col-12';
+ $form['mail']['#wrapper_attributes']['class'][] = ' col-md-6';
+  $form['mail']['#wrapper_attributes']['class'][] = ' col-12';
+    if (isset($form['name']) && isset($form['mail'])) {
+
+        // Div contenedor con estilos específicos
+        $form['name']['#prefix'] = '
+      <div class="row">
+      ' . ($form['name']['#prefix'] ?? '');
+
+        $form['mail']['#suffix'] = ($form['mail']['#suffix'] ?? '') . '</div>';
+    }
+
+    // Ocultando label de campos de formulario de contacto
+
+    $form['name']['#label_attributes']['class'][] = 'visually-hidden';
+      $form['mail']['#label_attributes']['class'][] = 'visually-hidden';
+       $form['subject']['widget'][0]['value']['#label_attributes']['class'][] = 'visually-hidden';
+        $form['message']['widget'][0]['value']['#label_attributes']['class'][] = 'visually-hidden';
+ 
+   
+    $form['name']['#attributes']['placeholder'] = 'Nombre *';
+     $form['mail']['#attributes']['placeholder'] = 'Correo electrónico *';
+      $form['subject']['widget'][0]['value']['#attributes']['placeholder'] = 'Asunto *';
+       $form['message']['widget'][0]['#attributes']['placeholder'] = 'Mensaje *';
+
+}
+
+// function ecosustentar_form_quiz_question_answering_form_alter(){
+
+// }
+
+// function ecosustentar_form_search_form_alter(&$form, &$form_state, $form_id){
+//   $form['actions']['submit']['#prefix'] = '<div class="search-submit-wrapper">';
+//   $form['actions']['submit']['#suffix'] = '</div>';
+// }
+
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function ecosustentar_form_search_form_alter(&$form, &$form_state, $form_id) {
+  
+  // Función recursiva para agregar wrappers a todos los elementos
+  function _add_wrappers_to_elements(&$element, $parent_key = '') {
+    // Solo procesar elementos que tengan #type
+    if (isset($element['#type'])) {
+      // Excluir elementos ocultos (hidden) y otros que no necesiten wrapper
+      $excluded_types = ['hidden', 'token', 'value'];
+      if (!in_array($element['#type'], $excluded_types)) {
+        $wrapper_class = 'form-element-wrapper';
+        
+        // Agregar clase específica basada en el tipo
+        if ($element['#type'] == 'submit') {
+          $wrapper_class .= ' submit-wrapper';
+          if (isset($element['#value']) && $element['#value'] == 'Buscar') {
+            $wrapper_class .= ' search-main-submit';
+            $element['#attributes']['class'][] = 'icon-only';
+          }
+        } elseif ($element['#type'] == 'search' || $element['#type'] == 'textfield') {
+          $wrapper_class .= ' text-input-wrapper';
+        } elseif ($element['#type'] == 'checkbox') {
+          $wrapper_class .= ' checkbox-wrapper';
+        }
+        
+        // Agregar wrapper
+        $element['#prefix'] = '<div class="' . $wrapper_class . '">' . (isset($element['#prefix']) ? $element['#prefix'] : '');
+        $element['#suffix'] = (isset($element['#suffix']) ? $element['#suffix'] : '') . '</div>';
+      }
+    }
+    
+    // Procesar recursivamente elementos hijos
+    foreach ($element as $key => &$value) {
+      if (is_array($value) && !in_array($key, ['#prefix', '#suffix', '#attributes'])) {
+        _add_wrappers_to_elements($value, $key);
+      }
+    }
+  }
+  
+  // Aplicar la función al formulario
+  _add_wrappers_to_elements($form);
+  
+  // Agregar wrapper específico para el botón principal de búsqueda
+  if (isset($form['basic']['submit'])) {
+    $form['basic']['submit']['#prefix'] = '<div class="search-submit-wrapper">';
+    $form['basic']['submit']['#suffix'] = '</div>';
+  }
+}
+
+
+/**
+ * Implements hook_theme_suggestions_taxonomy_term_alter().
+ */
+function ecosustentar_theme_suggestions_taxonomy_term_alter(array &$suggestions, array $variables) {
+  /** @var \Drupal\taxonomy\TermInterface $term */
+  $term = $variables['elements']['#taxonomy_term'];
+  $sanitized_view_mode = strtr($variables['elements']['#view_mode'], '.', '_');
+  // Add view mode theme suggestions.
+  $suggestions[] = 'taxonomy_term__' . $sanitized_view_mode;
+  $suggestions[] = 'taxonomy_term__' . $term->bundle() . '__' . $sanitized_view_mode;
+  $suggestions[] = 'taxonomy_term__' . $term->id() . '__' . $sanitized_view_mode;
+}
+
+
+
+
+

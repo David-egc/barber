@@ -1,0 +1,51 @@
+:root {
+  --color-at-capacity: #6f7579;
+  --color-near-capacity: #c83214;
+  --color-limited: #b05b0e;
+}
+.bookable-calendar-opening-instance,
+.bookable-calendar-opening-instance-key {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+.bookable-calendar-opening-instance {
+  padding-bottom: 1rem;
+  padding-top: 1rem;
+}
+.bookable-calendar-opening-instance .field.opening-time {
+  margin-bottom: 0;
+  display: flex;
+  align-items: center;
+}
+.bookable-calendar-opening-instance .button {
+  margin: 0;
+  justify-self: right;
+}
+.bookable-calendar-opening-instance .button.loading {
+  cursor: progress;
+}
+.bookable-calendar-opening-instance .availability {
+  display: flex;
+  align-items: center;
+}
+.bookable-calendar-opening-instance.at-capacity {
+  color: var(--color-at-capacity);
+}
+.bookable-calendar-opening-instance.at-capacity .button {
+  color: var(--color-at-capacity);
+  border-color: var(--color-at-capacity);
+}
+.bookable-calendar-opening-instance.near-capacity {
+  color: var(--color-near-capacity);
+}
+.bookable-calendar-opening-instance.near-capacity .button {
+  color: var(--color-near-capacity);
+  border-color: var(--color-near-capacity);
+}
+.bookable-calendar-opening-instance.limited {
+  color: var(--color-limited);
+}
+.bookable-calendar-opening-instance.limited .button {
+  color: var(--color-limited);
+  border-color: var(--color-limited);
+}

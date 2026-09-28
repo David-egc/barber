@@ -1,0 +1,28 @@
+{
+    "name": "drupal/youtube",
+    "description": "Provides a simple field that allows you to add a youtube video to a content type, user, or any other Drupal entity.",
+    "type": "drupal-module",
+    "keywords": ["Drupal"],
+    "license": "GPL-2.0-or-later",
+    "homepage": "https://www.drupal.org/project/youtube",
+    "minimum-stability": "dev",
+    "support": {
+        "issues": "https://www.drupal.org/project/issues/youtube",
+        "source": "https://git.drupalcode.org/project/youtube"
+    },
+    "require-dev": {
+        "drupal/coder": "^8.3",
+        "phpstan/phpstan-deprecation-rules": "^1.1"
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
+    },
+    "scripts": {
+        "phpcs": "vendor/bin/phpcs src tests -p",
+        "test": [
+            "@phpcs"
+        ]
+    }
+}

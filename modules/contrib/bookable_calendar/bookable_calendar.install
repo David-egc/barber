@@ -1,0 +1,297 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the Bookable Calendar module.
+ */
+
+use Drupal\bookable_calendar\Entity\BookableCalendar;
+use Drupal\Core\Database\Database;
+use Drupal\Core\Field\BaseFieldDefinition;
+use Drupal\Core\Field\FieldStorageDefinitionInterface;
+use Symfony\Component\Yaml\Yaml;
+
+/**
+ * Change Instance base table from to bookable_calendar_opening_inst.
+ */
+function bookable_calendar_update_8101() {
+  $schema = Database::getConnection()->schema();
+  $table_exists = $schema->tableExists('bookable_calendar_opening_instance');
+  if ($table_exists) {
+    $schema->renameTable('bookable_calendar_opening_instance', 'bookable_calendar_opening_inst');
+  }
+}
+
+/**
+ * Add user configurable Success Message field to Bookable Calendar.
+ */
+function bookable_calendar_update_8102() {
+  $field_storage_definition = BaseFieldDefinition::create('text_long')
+    ->setRevisionable(TRUE)
+    ->setTranslatable(TRUE)
+    ->setLabel(t('Success message'))
+    ->setDescription(t('Message displayed after a sucessful registration.'));
+  \Drupal::entityDefinitionUpdateManager()
+    ->installFieldStorageDefinition('success_message', 'bookable_calendar', 'bookable_calendar', $field_storage_definition);
+}
+
+/**
+ * Add Boolean to Calendar to toggle how Slots Per Opening Is Calculated.
+ */
+function bookable_calendar_update_8103() {
+  $field_storage_definition = BaseFieldDefinition::create('boolean')
+    ->setRevisionable(TRUE)
+    ->setLabel(t('Treat Slots as Parties'))
+    ->setDescription(t('This will change the math of "Max Slots" to "Max Parties". This will allow you to only have 3 different groups claim a slot but each group can have as big of a party as your Max Party Size limit.'))
+    ->setDefaultValue(FALSE)
+    ->setSetting('on_label', 'Treat Slots as Parties');
+  \Drupal::entityDefinitionUpdateManager()
+    ->installFieldStorageDefinition('slots_as_parties', 'bookable_calendar', 'bookable_calendar', $field_storage_definition);
+}
+
+/**
+ * Add Email override info to Calendars.
+ */
+function bookable_calendar_update_8104() {
+  $field_storage_definition = BaseFieldDefinition::create('boolean')
+    ->setLabel(t('Override Default User Email'))
+    ->setDescription(t('Text in the email is editable on the main settings page, if you want different text per calendar you will need to select this'));
+  \Drupal::entityDefinitionUpdateManager()
+    ->installFieldStorageDefinition('notification_email_override', 'bookable_calendar', 'bookable_calendar', $field_storage_definition);
+
+  $field_storage_definition = BaseFieldDefinition::create('string')
+    ->setLabel(t('User Email Subject'))
+    ->setDescription(t('The subject of the email sent to the user if Override Default User Email is set'))
+    ->setSetting('max_length', 255);
+  \Drupal::entityDefinitionUpdateManager()
+    ->installFieldStorageDefinition('notification_email_subject', 'bookable_calendar', 'bookable_calendar', $field_storage_definition);
+
+  $field_storage_definition = BaseFieldDefinition::create('text_long')
+    ->setLabel(t('User Email Body'))
+    ->setDescription(t('The body of the email sent to the user if Override Default User Email is set'));
+  \Drupal::entityDefinitionUpdateManager()
+    ->installFieldStorageDefinition('notification_email_body', 'bookable_calendar', 'bookable_calendar', $field_storage_definition);
+}
+
+/**
+ * Add Checked In status to Booking Contacts.
+ */
+function bookable_calendar_update_8105() {
+  $field_storage_definition = BaseFieldDefinition::create('boolean')
+    ->setLabel(t('Checked In'))
+    ->setDescription(t('Whether or not this user has showed up to their booked event'))
+    ->setDefaultValue(FALSE);
+  \Drupal::entityDefinitionUpdateManager()
+    ->installFieldStorageDefinition('checked_in', 'booking_contact', 'booking_contact', $field_storage_definition);
+}
+
+/**
+ * Add Slots field to Opening Instance.
+ */
+function bookable_calendar_update_8106() {
+  $field_storage_definition = BaseFieldDefinition::create('integer')
+    ->setLabel(t('Slots'))
+    ->setDescription(t("The number of available slots for this instance. If empty (NB not zero), will use calendar's defaults."))
+    ->setCardinality(1)
+    ->setDefaultValue(NULL);
+  \Drupal::entityDefinitionUpdateManager()
+    ->installFieldStorageDefinition('slots', 'bookable_calendar_opening_inst', 'bookable_calendar_opening_inst', $field_storage_definition);
+}
+
+/**
+ * Add Slots field to Opening.
+ */
+function bookable_calendar_update_8107() {
+  $field_storage_definition = BaseFieldDefinition::create('integer')
+    ->setLabel(t('Slots'))
+    ->setDescription(t("The default number of available slots for instances in this opening. If empty (NB not zero), will use calendar's defaults."))
+    ->setCardinality(1)
+    ->setDefaultValue(NULL);
+  \Drupal::entityDefinitionUpdateManager()
+    ->installFieldStorageDefinition('slots', 'bookable_calendar_opening', 'bookable_calendar', $field_storage_definition);
+}
+
+/**
+ * Add User field to Booking Contact.
+ */
+function bookable_calendar_update_8108() {
+  $field_storage_definition = BaseFieldDefinition::create('entity_reference')
+    ->setLabel(t('Booking User'))
+    ->setDescription(t('The user this booking contact belongs to'))
+    ->setDefaultValue(NULL);
+  \Drupal::entityDefinitionUpdateManager()
+    ->installFieldStorageDefinition('uid', 'booking_contact', 'bookable_calendar', $field_storage_definition);
+}
+
+/**
+ * Update the config for view.view.booking_contact.
+ */
+function bookable_calendar_update_8109() {
+  \Drupal::service('config.installer')->installDefaultConfig('module', 'bookable_calendar');
+}
+
+/**
+ * Add title to Bookable Calendar Opening Instances.
+ */
+function bookable_calendar_update_8110() {
+  $field_storage_definition = BaseFieldDefinition::create('string')
+    ->setLabel(t('Title'))
+    ->setDescription(t('Title of the Opening Instance'))
+    ->setDefaultValue(NULL);
+  \Drupal::entityDefinitionUpdateManager()
+    ->installFieldStorageDefinition('title', 'bookable_calendar_opening_inst', 'bookable_calendar_opening_inst', $field_storage_definition);
+}
+
+/**
+ * Update all Opening Instances to give them titles.
+ */
+function bookable_calendar_update_8111() {
+  $all_openings = \Drupal::entityTypeManager()->getStorage('bookable_calendar_opening_inst')->loadMultiple();
+  foreach ($all_openings as $opening) {
+    $opening->save();
+  }
+}
+
+/**
+ * Add Ability for In Progress Bookings.
+ */
+function bookable_calendar_update_8112() {
+  $field_storage_definition = BaseFieldDefinition::create('boolean')
+    ->setLabel(t('Allow In Progress Bookings'))
+    ->setDescription(t('Allows for bookings to happen as long as opening has not ended.'))
+    ->setDefaultValue(FALSE);
+  \Drupal::entityDefinitionUpdateManager()
+    ->installFieldStorageDefinition('book_in_progress', 'bookable_calendar', 'bookable_calendar', $field_storage_definition);
+}
+
+/**
+ * Add ability to limit a single user from booking too much at once.
+ */
+function bookable_calendar_update_8113() {
+  $field_storage_definition = BaseFieldDefinition::create('integer')
+    ->setLabel(t('Max Open Bookings Per User'))
+    ->setDescription(t('Limit the amount of future bookings a single user can do, will limit off email address.'))
+    ->setCardinality(1)
+    ->setDefaultValue(NULL);
+  \Drupal::entityDefinitionUpdateManager()
+    ->installFieldStorageDefinition('max_open_bookings', 'bookable_calendar', 'bookable_calendar', $field_storage_definition);
+}
+
+/**
+ * Add ability to turn on One-Click Bookings.
+ */
+function bookable_calendar_update_8200() {
+  $field_storage_definition = BaseFieldDefinition::create('boolean')
+    ->setLabel(t('Enable "One-Click" Booking of Openings'))
+    ->setDescription(t('If user is logged in, clicking the "Book" button will book the opening with the logged in users information but will only book a single slot.'))
+    ->setDefaultValue(FALSE);
+  \Drupal::entityDefinitionUpdateManager()
+    ->installFieldStorageDefinition('one_click_booking', 'bookable_calendar', 'bookable_calendar', $field_storage_definition);
+}
+
+/**
+ * Fix potential broken Calendar to Opening Entity References.
+ */
+function bookable_calendar_update_8201() {
+  $calendar_storage = \Drupal::entityTypeManager()->getStorage('bookable_calendar');
+  $calendars = $calendar_storage->loadMultiple();
+  foreach ($calendars as $calendar) {
+    $calendar->set('calendar_openings', []);
+    $calendar->save();
+  }
+  $opening_storage = \Drupal::entityTypeManager()->getStorage('bookable_calendar_opening');
+  $openings = $opening_storage->loadMultiple();
+  foreach ($openings as $opening) {
+    $opening->save();
+  }
+}
+
+/**
+ * Fix Entity Mismatch for "One-Click" Booking field.
+ */
+function bookable_calendar_update_8202() {
+  $entity_definition_update_manager = \Drupal::entityDefinitionUpdateManager();
+  $field_storage_definition = $entity_definition_update_manager->getFieldStorageDefinition('one_click_booking', 'bookable_calendar');
+  $field_storage_definition->setRevisionable(TRUE);
+  $entity_definition_update_manager->updateFieldStorageDefinition($field_storage_definition);
+}
+
+/**
+ * Fix Entity Mismatch for "Book In Progress" field.
+ */
+function bookable_calendar_update_8203() {
+  $entity_definition_update_manager = \Drupal::entityDefinitionUpdateManager();
+  $field_storage_definition = $entity_definition_update_manager->getFieldStorageDefinition('book_in_progress', 'bookable_calendar');
+  $field_storage_definition->setRevisionable(TRUE);
+  $entity_definition_update_manager->updateFieldStorageDefinition($field_storage_definition);
+}
+
+/**
+ * Update all Opening Instances to give them titles.
+ */
+function bookable_calendar_update_8304() {
+  $all_openings = \Drupal::entityTypeManager()->getStorage('bookable_calendar_opening_inst')->loadMultiple();
+  foreach ($all_openings as $opening) {
+    $opening->save();
+  }
+}
+
+/**
+ * Add field to Contact to track notifications.
+ */
+function bookable_calendar_update_8305() {
+  $field_storage_definition = BaseFieldDefinition::create('string')
+    ->setLabel(t('Notifications Sent'))
+    ->setDescription(t('Names of Notifications this Contact has received.'))
+    ->setCardinality(FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED)
+    ->setDefaultValue(NULL);
+  \Drupal::entityDefinitionUpdateManager()
+    ->installFieldStorageDefinition('notifications', 'booking_contact', 'booking_contact', $field_storage_definition);
+}
+
+/**
+ * Import new Notifications View.
+ */
+function bookable_calendar_update_8306() {
+  $config_factory = \Drupal::service('config.factory');
+  $extension_path_resolver = \Drupal::service('extension.path.resolver');
+  $module_path = $extension_path_resolver->getPath('module', 'bookable_calendar');
+  $config_file_path = $module_path . '/config/install/views.view.booking_notifications.yml';
+  $config_data = Yaml::parse(file_get_contents($config_file_path));
+  $config_factory->getEditable('views.view.booking_notifications')
+    ->setData($config_data)
+    ->save();
+}
+
+/**
+ * Install ECA Notification Config if site meets requirements.
+ */
+function bookable_calendar_update_8307() {
+  $extension_path_resolver = \Drupal::service('extension.path.resolver');
+  $module_path = $extension_path_resolver->getPath('module', 'bookable_calendar');
+
+  // Install eca config.
+  $config_file = $module_path . '/config/optional/eca.eca.process_gnq52ey.yml';
+  $config_data = Yaml::parse(file_get_contents($config_file));
+  $config_storage = \Drupal::service('config.storage');
+  \Drupal::service('config.installer')->installOptionalConfig($config_storage, ['eca.eca.process_gnq52ey'], $config_data);
+
+  // Install model config.
+  $config_file = $module_path . '/config/optional/eca.model.process_gnq52ey.yml';
+  $config_data = Yaml::parse(file_get_contents($config_file));
+  $config_storage = \Drupal::service('config.storage');
+  \Drupal::service('config.installer')->installOptionalConfig($config_storage, ['eca.model.process_gnq52ey'], $config_data);
+}
+
+/**
+ * Add user configurable email subject and body field for cancellations to Bookable Calendar.
+ */
+function bookable_calendar_update_8308() {
+  /** @var \Drupal\Core\Entity\ContentEntityTypeInterface $entity_type */
+  $entityType = \Drupal::entityTypeManager()->getDefinition('bookable_calendar');
+  $definitions = BookableCalendar::baseFieldDefinitions($entityType);
+  foreach (['notification_email_subject_cancel', 'notification_email_body_cancel'] as $fieldName) {
+    \Drupal::entityDefinitionUpdateManager()
+      ->installFieldStorageDefinition($fieldName, 'bookable_calendar', 'bookable_calendar', $definitions[$fieldName]);
+  }
+}

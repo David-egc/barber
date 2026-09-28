@@ -1,0 +1,101 @@
+uuid: cafad94c-42c6-4e33-870a-2e2e2845ce94
+langcode: en
+status: false
+dependencies:
+  config:
+    - views.view.booking_notifications
+  module:
+    - eca_base
+    - eca_content
+    - eca_user
+    - eca_views
+id: process_gnq52ey
+modeller: bpmn_io
+label: 'Booking Notifications: Day Before'
+version: '1.0'
+weight: null
+events:
+  Event_1ik0c05:
+    plugin: 'eca_base:eca_cron'
+    label: Cron
+    configuration:
+      frequency: '* * * * *'
+    successors:
+      -
+        id: Activity_13degdw
+        condition: ''
+  Event_1pygffg:
+    plugin: 'content_entity:custom'
+    label: Notification
+    configuration:
+      event_id: booking_notification
+    successors:
+      -
+        id: Activity_0n0yapb
+        condition: Flow_1lzr6ai
+conditions:
+  Flow_1lzr6ai:
+    plugin: eca_entity_field_value
+    configuration:
+      case: false
+      expected_value: day_before
+      field_name: notifications
+      operator: contains
+      type: value
+      negate: true
+      entity: entity
+gateways: {  }
+actions:
+  Activity_13degdw:
+    plugin: eca_switch_account
+    label: 'Switch User'
+    configuration:
+      user_id: '1'
+    successors:
+      -
+        id: Activity_1u1wk8z
+        condition: ''
+  Activity_1u1wk8z:
+    plugin: eca_views_query
+    label: 'List Notifications'
+    configuration:
+      token_name: notificationlist
+      view_id: booking_notifications
+      display_id: day_before
+      arguments: ''
+    successors:
+      -
+        id: Activity_0s1qmkn
+        condition: ''
+  Activity_0s1qmkn:
+    plugin: eca_trigger_content_entity_custom_event
+    label: 'Trigger Notification'
+    configuration:
+      event_id: booking_notification
+      tokens: ''
+      object: notificationlist
+    successors: {  }
+  Activity_0n0yapb:
+    plugin: action_send_email_action
+    label: Mail
+    configuration:
+      recipient: '[entity:email]'
+      subject: 'Reminder from [booking_contact:calendar_title]'
+      message: '[booking_contact:values]'
+      replace_tokens: true
+    successors:
+      -
+        id: Activity_064ase7
+        condition: ''
+  Activity_064ase7:
+    plugin: eca_set_field_value
+    label: 'Mark Notification As Sent'
+    configuration:
+      field_name: notifications
+      field_value: day_before
+      method: 'append:not_full'
+      strip_tags: false
+      trim: false
+      save_entity: true
+      object: entity
+    successors: {  }

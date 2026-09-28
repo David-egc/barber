@@ -1,0 +1,27 @@
+# Custom module library for general purposes.
+default:
+  css:
+    component:
+      css/bookable-calendar.css: {}
+
+vue:
+  js:
+    https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js: { type: external }
+
+admin_checkin:
+  css:
+    component:
+      css/admin-checkin.css: {}
+  js:
+    js/admin-checkin.js: {}
+  dependencies:
+    - bookable_calendar/vue
+
+one_click_booking:
+  js:
+    js/one-click-booking.js: {}
+  dependencies:
+    - core/drupal.ajax
+    - core/drupal.message
+    - core/drupalSettings
+    - core/jquery

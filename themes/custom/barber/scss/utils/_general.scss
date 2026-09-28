@@ -1,0 +1,419 @@
+body {
+  background: #fff;
+  font-family: 'Outfit', sans-serif;
+  font-size: 18px;
+  p{
+    color: #5f5f5f;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.8;
+  font-family: 'Outfit', sans-serif;
+  }
+}
+
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+div [data-drupal-messages=""]{
+  padding-block: 40px;
+  text-align: center;
+  font-size: 23px;
+  font-weight: 500;
+}
+
+body {
+
+  &:not(.user-logged-in) .encabezado .region-menu-secundario{
+    top:0;
+.region-header{
+top: 0;
+  }
+  } 
+    &.user-logged-in.toolbar-tray-open .encabezado .region-menu-secundario{
+    top: 70px;  
+    // &.user-logged-in .encabezado .region-menu-secundario
+.region-header{
+top: 70px;
+  }
+    }
+}
+body {
+
+  &:not(.user-logged-in) .encabezado .region-header #block-ecosustentar-account-menu,
+  &:not(.user-logged-in) .menu-responsive-area .region-menu-responsive #block-ecosustentar-menudecuentadeusuario {
+
+    ul:not(.contextual-links) {
+      list-style: none;
+      display: flex;
+      margin: 0;
+
+      li {
+
+
+        &:hover {
+          a {
+            // background: $coloramarillo;
+
+            &::after {
+              // color: $colorblanco !important;
+
+            }
+          }
+
+
+
+        }
+
+        a {
+          padding: 10px 30px;
+          border-radius: 30px;
+          display: inline-block;
+          // background: $colorazul;
+          text-transform: uppercase;
+          font-size: 16px ;
+          font-weight: 600;
+          line-height: 1.2em;
+          // color: $colorblanco;
+          transition: all .4s;
+
+          // Icono Iniciar sesión
+          &[href="/pw_EcoSustentAr/user/login"] {
+
+            &::after {
+              // content: '\f007';
+              // font-family: $font-icon-free;
+              // font-size: 25px;
+              // color: $colorblanco !important;
+              // padding: 10px;
+            }
+          }
+
+        }
+      }
+    }
+
+
+  }
+
+  &.user-logged-in .encabezado .region-header #block-ecosustentar-account-menu,
+  &.user-logged-in .menu-responsive-area .region-menu-responsive #block-ecosustentar-menudecuentadeusuario {
+
+    ul:not(.contextual-links) {
+      float: right;
+      display: flex;
+      margin: 0;
+      padding: 0;
+
+      li {
+        list-style: none;
+        padding-inline: 10px;
+
+        //Icono cerrar sesión
+        &:last-child {
+          a {
+            &::after {
+              // content: '\f08b';
+              // font-family: $font-icon-free;
+              // font-size: 25px;
+              // color: $colorprincipal;
+            }
+
+            &:hover {
+              &::after {
+                // color: $coloramarillo;
+              }
+            }
+          }
+        }
+
+        a {
+          font-size: 0;
+          transition: all .4s;
+
+          &:hover {
+            &::after {
+              // color: $coloramarillo !important;
+            }
+          }
+
+          //Icono de Cuenta de usuario
+          &[href="/pw_EcoSustentAr/user"]::after {
+            // content: '\e065';
+            // font-family: $font-icon-free;
+            // font-size: 25px;
+            // color: $colorprincipal;
+
+          }
+
+
+        }
+
+
+
+
+      }
+
+
+    }
+
+
+  }
+
+}
+
+// Menu cuenta de usuario dentro de menú movil
+
+// body {
+
+//   &:not(.user-logged-in),
+//   &.user-logged-in {
+//     .menu-responsive-area .region-menu-responsive #block-ecosustentar-menudecuentadeusuario {
+//       padding-top: 25px;
+
+//       ul:not(.contextual-links) {
+//         float: initial;
+//         justify-content: center;
+//         padding: 0;
+
+//         li {
+//           a {
+//             // font-size: 0;
+
+//             &::after {
+//               color: $colorazul !important;
+//             }
+//           }
+//         }
+//       }
+//     }
+//   }
+
+
+
+// }
+
+
+// // Menu movil 
+// aside.menu-responsive-area {
+//   .cerrar {
+
+//     display: flex;
+//     justify-content: flex-end;
+//     padding-top: 10px;
+
+//     .boton-cerrar {
+//       background: transparent;
+//       border: transparent;
+//       margin-right: 30px;
+
+
+//       .mdi-close::after {
+//         content: '\f2d3';
+//         font-size: 30px;
+//         color: $colorazul ;
+//         font-family: $font-icon-free;
+
+//       }
+
+//       &:hover {
+//         .mdi-close::after {
+//           color: $coloramarillo;
+//         }
+//       }
+//     }
+//   }
+
+//   .region-menu-responsive {
+//     #block-ecosustentar-marcadelsitio {
+//       position: absolute;
+//       top: 5px;
+//       left: 10px;
+
+//       .site-logo {
+//         img {
+//           max-width: 230px
+//         }
+//       }
+//     }
+
+//     #block-ecosustentar-navegacionprincipal-2 {
+//       margin-top: 20px;
+
+//       ul:not(contextual-links) {
+//         list-style: none;
+//         padding: 0;
+
+//         li {
+//           text-align: center;
+//           transition: all .5s;
+
+//           &:hover {
+//             a {
+//               color: $coloramarillo;
+//             }
+//           }
+
+//           a {
+//             padding: 10px 15px 10px 15px;
+//             color: $colorprincipal;
+//             font-weight: 700;
+//             text-transform: uppercase;
+//             font-family: 'Heebo Regular',
+//               sans-serif;
+//             transition: all .4s;
+
+
+//             &.is-active {
+//               color: $coloramarillo;
+//             }
+//           }
+//         }
+//       }
+//     }
+//   }
+// }
+
+a {
+  text-decoration: none;
+}
+
+.region-messages {
+  margin-top: 20px;
+}
+
+em.placeholder {
+  background-color: unset;
+  font-style: normal;
+
+  a {
+    text-decoration: none;
+  }
+}
+
+
+// Enlaces de operaciones de nodos
+.path-node,
+.path-taxonomy,
+.path-quiz,
+.path-search,
+.path-user {
+  .region-content {
+    #block-ecosustentar-primary-local-tasks {
+      text-align: center;
+      margin-bottom: 20px;
+
+      .tabs-wrapper {
+        display: inline-block;
+
+        .tabs.tabs--primary {
+          border: 1px solid#ebebeb;
+          border-radius: 3px;
+
+          .tabs__tab {
+
+
+            a {
+              padding: 8px 12px;
+              color: $color_subtitulo;
+              text-transform: uppercase;
+              font-weight: 700;
+              font-family: 'Heebo Regular', sans-serif;
+              font-size: 15px;
+              position: relative;
+
+
+
+              &:after {
+                content: "";
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: $color_crema;
+                opacity: 0;
+                z-index: -1;
+                transition: all .5s;
+              }
+
+
+
+              &:focus {
+                outline: solid 3px $color_crema;
+              }
+            }
+
+            &:hover {
+              a {
+                color: $color_blanco;
+
+                &::after {
+                  opacity: 1;
+                }
+              }
+            }
+
+            .tabs__trigger {
+              &:focus {
+                border-color: $color_morado;
+              }
+
+              .tabs__trigger-icon {
+                span {
+                  border-color: $color_crema;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+
+
+
+// Página de mantenimiento
+
+.maintenance-page{
+  header{
+   
+    img{
+      width: 500px;
+    }
+    h1 {
+     padding-top: 15px;
+     text-align:center ;
+       a { 
+      font-family: 'Heebo Regular', sans-serif;
+        
+        font-weight: 600;
+        text-transform: uppercase;
+        line-height: 44px;
+        display: inline-block;
+      
+        color: $color_texto_oscuro;
+        display: inline-block;
+        &:hover{
+color: $color_crema;
+        }
+    }
+    }
+   
+
+  }
+  main{
+     font-size: 21px;
+     padding-top: 70px;
+    max-width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+   
+     
+    
+  }
+}

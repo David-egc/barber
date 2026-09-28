@@ -1,0 +1,13 @@
+services:
+  bookable_calendar.notification:
+    class: Drupal\bookable_calendar\Notification
+    arguments: ['@entity_type.manager', '@plugin.manager.mail', '@messenger', '@token', '@config.factory', '@current_user', '@database']
+
+  bookable_calendar.renderer:
+    class: Drupal\bookable_calendar\Renderer
+    arguments: ['@entity_type.manager', '@current_user', '@database', '@language_manager', '@date.formatter']
+
+  bookable_calendar.route_subscriber:
+    class: Drupal\bookable_calendar\EventSubscriber\BookableCalendarRouteSubscriber
+    tags:
+      - { name: event_subscriber }
